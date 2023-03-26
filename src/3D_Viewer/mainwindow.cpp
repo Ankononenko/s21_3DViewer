@@ -8,11 +8,15 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    GLWidget *glWidget = new GLWidget(this);
-    setCentralWidget(glWidget);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    close();
+}
+
