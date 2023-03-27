@@ -3,8 +3,11 @@
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QOpenGLExtraFunctions>
+#include <QMatrix4x4>
+#include <QOpenGLShaderProgram>
 
-class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions
+class GLWidget : public QOpenGLWidget, protected QOpenGLExtraFunctions
 {
     Q_OBJECT
 public:
@@ -13,6 +16,7 @@ public:
 protected:
     void initializeGL() override;
     void paintGL() override;
+    void resizeGL(int width, int height) override;
 };
 
 #endif // GLWIDGET_H
