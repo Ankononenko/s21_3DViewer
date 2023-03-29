@@ -30,7 +30,7 @@
      </sizepolicy>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="QuitButton">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -41,6 +41,32 @@
     </property>
     <property name="text">
      <string>Quit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="SmallerButton">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>590</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Smaller</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="BiggerButton">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>590</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Bigger</string>
     </property>
    </widget>
   </widget>

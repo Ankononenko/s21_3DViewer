@@ -30,7 +30,7 @@ QOpenGLShaderProgram *shaderProgram;
 GLuint VAO, VBO;
 
 GLWidget::GLWidget(QWidget *parent)
-    : QOpenGLWidget(parent)
+    : QOpenGLWidget(parent), scaleFactor(1.0f)
 {
 }
 
@@ -95,6 +95,9 @@ void GLWidget::paintGL()
     // Rotate the model around the y-axis
     model.rotate(45.0f, QVector3D(0.0f, 1.0f, 0.0f));
 
+    // Scale the model
+    model.scale(scaleFactor, scaleFactor, scaleFactor);
+
     // Move the camera back along the z-axis
     view.translate(0.0f, 0.0f, -3.0f);
 
@@ -131,4 +134,13 @@ void GLWidget::paintGL()
 void GLWidget::resizeGL(int width, int height)
 {
     glViewport(0, 0, width, height);
+}
+
+float GLWidget::getScaleFactor() const {
+    return scaleFactor;
+}
+
+void GLWidget::setScaleFactor(float newScaleFactor) {
+    scaleFactor = newScaleFactor;
+    update(); // Trigger a repaint
 }
