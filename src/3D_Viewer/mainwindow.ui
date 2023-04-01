@@ -10,17 +10,29 @@
     <height>800</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1200</width>
+    <height>800</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>3D Viewer</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QMainWindow {
+    border: 1px solid gray;
+    border-radius: 1px;
+}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="GLWidget" name="openGLWidget" native="true">
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>40</y>
-      <width>800</width>
-      <height>600</height>
+      <y>20</y>
+      <width>871</width>
+      <height>731</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -33,8 +45,8 @@
    <widget class="QPushButton" name="QuitButton">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>660</y>
+      <x>90</x>
+      <y>760</y>
       <width>89</width>
       <height>25</height>
      </rect>
@@ -43,31 +55,266 @@
      <string>Quit</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="SmallerButton">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>590</y>
-      <width>89</width>
-      <height>25</height>
+      <x>20</x>
+      <y>90</y>
+      <width>271</width>
+      <height>97</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Smaller</string>
-    </property>
+    <layout class="QGridLayout" name="moveModelGridLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetNoConstraint</enum>
+     </property>
+     <property name="spacing">
+      <number>6</number>
+     </property>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="smallerButton">
+       <property name="text">
+        <string>Smaller</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="moveUpButton">
+       <property name="text">
+        <string>Up</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="moveRightButton">
+       <property name="text">
+        <string>Right</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="biggerButton">
+       <property name="text">
+        <string>Bigger</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="moveDownButton">
+       <property name="text">
+        <string>Down</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="moveLeftButton">
+       <property name="text">
+        <string>Left</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QPushButton" name="BiggerButton">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>590</y>
-      <width>89</width>
-      <height>25</height>
+      <x>19</x>
+      <y>20</y>
+      <width>271</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Bigger</string>
+    <layout class="QVBoxLayout" name="loadVerticalLayout">
+     <item>
+      <widget class="QPushButton" name="loadModelButton">
+       <property name="text">
+        <string>Load model file</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>271</width>
+      <height>31</height>
+     </rect>
     </property>
+    <layout class="QVBoxLayout" name="moveLabelVerticalLayout">
+     <item>
+      <widget class="QLabel" name="moveLabel">
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string>Move model</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>200</y>
+      <width>271</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="rotateLabelVerticalLayout">
+     <item>
+      <widget class="QLabel" name="rotateLabel">
+       <property name="text">
+        <string>Rotate model</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>230</y>
+      <width>271</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="rotateModelGridLayout">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="rotateUpButton">
+       <property name="text">
+        <string>Up</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="rotateDownButton">
+       <property name="text">
+        <string>Down</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="rotateLeftButton">
+       <property name="text">
+        <string>Left</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="rotateRightButton">
+       <property name="text">
+        <string>Right</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="rotateClockwiseButton">
+       <property name="text">
+        <string>Clockwise</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="rotateCounterclockwiseButton">
+       <property name="text">
+        <string>Counterclockwise</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>760</y>
+      <width>791</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="fileInfoHorizontalLayout">
+     <item>
+      <widget class="QLabel" name="filenameLabel">
+       <property name="text">
+        <string>Triangle.obj</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="numEdgesLabel">
+       <property name="text">
+        <string>Number of vertices: 3</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="numVerticesLabel">
+       <property name="text">
+        <string>Number of edges: 3</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>330</y>
+      <width>271</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="projectionTypeVerticalLayout">
+     <item>
+      <widget class="QLabel" name="projectionTypeLabel">
+       <property name="text">
+        <string>Type of projection</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>360</y>
+      <width>271</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="projectionTypeHorizontalLayout">
+     <item>
+      <widget class="QPushButton" name="parallelButton">
+       <property name="text">
+        <string>Parallel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="centralButton">
+       <property name="text">
+        <string>Central</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>

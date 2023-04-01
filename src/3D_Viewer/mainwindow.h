@@ -20,9 +20,9 @@ private slots:
 
     void on_QuitButton_clicked();
 
-    void on_SmallerButton_clicked();
+    void on_smallerButton_clicked();
 
-    void on_BiggerButton_clicked();
+    void on_biggerButton_clicked();
 
 private:
     Ui::MainWindow *ui;

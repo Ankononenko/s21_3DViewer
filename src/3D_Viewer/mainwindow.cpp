@@ -21,13 +21,13 @@ void MainWindow::on_QuitButton_clicked()
     close();
 }
 
-void MainWindow::on_SmallerButton_clicked()
+void MainWindow::on_smallerButton_clicked()
 {
     float currentScale = glWidget->getScaleFactor();
     glWidget->setScaleFactor(currentScale * 0.9f); // 10% smaller
 }
 
-void MainWindow::on_BiggerButton_clicked()
+void MainWindow::on_biggerButton_clicked()
 {
     float currentScale = glWidget->getScaleFactor();
     glWidget->setScaleFactor(currentScale * 1.1f); // 10% bigger
