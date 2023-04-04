@@ -7,6 +7,9 @@
 #include <QMatrix4x4>
 #include <QOpenGLShaderProgram>
 
+#include <stdio.h>
+#include <string.h>
+
 class GLWidget : public QOpenGLWidget, protected QOpenGLExtraFunctions
 {
     Q_OBJECT
