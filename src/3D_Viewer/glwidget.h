@@ -9,12 +9,15 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 class GLWidget : public QOpenGLWidget, protected QOpenGLExtraFunctions
 {
     Q_OBJECT
 public:
     explicit GLWidget(QWidget *parent = nullptr);
+    // Destructor declaration for the frees of the arrays
+    ~GLWidget();
     float getScaleFactor() const;
     void setScaleFactor(float newScaleFactor);
 

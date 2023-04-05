@@ -32,4 +32,3 @@ void MainWindow::on_QuitButton_clicked()
 //    float currentScale = glWidget->getScaleFactor();
 //    glWidget->setScaleFactor(currentScale * 1.1f); // 10% bigger
 //}
-

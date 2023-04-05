@@ -1,7 +1,11 @@
 #include "glwidget.h"
 
-double cubeVertices[24];
-unsigned int cubeIndices[72];
+int n_vertices = 1;
+int n_indices = 1;
+
+double* cubeVertices = NULL;
+unsigned int* cubeIndices = NULL;
+
 
 void parseObjFile(const char *filename) {
     int vertexIndex = 0;
@@ -15,6 +19,22 @@ void parseObjFile(const char *filename) {
 
     char* line = NULL;
     size_t len = 0;
+
+    while (getline(&line, &len, file) != -1) {
+        if (line[0] == 'v' && line[1] == ' ') {
+            n_vertices++;
+        } else if (line[0] == 'l' && line[1] == ' ') {
+            n_indices += 2;
+        } else if (line[0] == 'f' && line[1] == ' ' && line[3] == ' ') {
+            n_indices += 6;
+        }
+    }
+
+    rewind(file);
+
+    cubeVertices = (double*)malloc(n_vertices * 3 * sizeof(double));
+    cubeIndices = (unsigned int*)malloc(n_indices * sizeof(unsigned int));
+
     while (getline(&line, &len, file) != -1) {
         if (line[0] == 'v' && line[1] == ' ') {
             double x, y, z;
@@ -30,8 +50,8 @@ void parseObjFile(const char *filename) {
             cubeIndices[faceIndex++] = indices[0] - 1;
             cubeIndices[faceIndex++] = indices[1] - 1;
         }
-        // Parse the face-style obj file
-          else if (line[0] == 'f' && line[1] == ' ') {
+        // Parse the perfect face-style obj file
+          else if (line[0] == 'f' && line[1] == ' ' && line[3] == ' ') {
             int indices[3];
             sscanf(line, "f %d %d %d", &indices[0], &indices[1], &indices[2]);
             for (int i = 0; i < 3; i++) {
@@ -59,6 +79,7 @@ GLWidget::GLWidget(QWidget *parent)
 {
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/line_cube.obj");
     parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/cube.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/teapot.obj");
 }
 
 void GLWidget::initializeGL()
@@ -94,7 +115,7 @@ void GLWidget::paintGL()
     // First set of values - position of the camera
     // Second set of values - position of the center
     // Third set of values - determines the orientation of the camera properly (in relation to the ground and other objects in the scene)
-    modelView.lookAt(QVector3D(3, 3, 5), QVector3D(0, 0, 0), QVector3D(0, 1, 0));
+    modelView.lookAt(QVector3D(2, 2, 4), QVector3D(0, 0, 0), QVector3D(0, 1, 0));
 
     // Load the projection and model-view matrices
     glMatrixMode(GL_PROJECTION);
@@ -103,13 +124,24 @@ void GLWidget::paintGL()
     glLoadMatrixf(modelView.constData());
 
     // Draw the points
-    glDrawArrays(GL_POINTS, 0, sizeof(cubeVertices) / (3 * sizeof(double)));
+    glDrawArrays(GL_POINTS, 0, n_vertices);
 
     // Draw the lines
-    glDrawElements(GL_LINES, sizeof(cubeIndices) / sizeof(unsigned int), GL_UNSIGNED_INT, cubeIndices);
+    glDrawElements(GL_LINES, n_indices, GL_UNSIGNED_INT, cubeIndices);
 }
 
 void GLWidget::resizeGL(int width, int height)
 {
     glViewport(0, 0, width, height);
+}
+
+// Destructor class
+GLWidget::~GLWidget()
+{
+    if (cubeVertices) {
+        free(cubeVertices);
+    }
+    if (cubeIndices) {
+        free(cubeIndices);
+    }
 }
