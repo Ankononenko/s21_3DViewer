@@ -39,16 +39,14 @@ void parseObjFile(const char *filename) {
         if (line[0] == 'v' && line[1] == ' ') {
             double x, y, z;
             sscanf(line, "v %lf %lf %lf", &x, &y, &z);
-            cubeVertices[vertexIndex * 3] = x;
-            cubeVertices[vertexIndex * 3 + 1] = y;
-            cubeVertices[vertexIndex * 3 + 2] = z;
-            vertexIndex++;
+            cubeVertices[vertexIndex++] = x;
+            cubeVertices[vertexIndex++] = y;
+            cubeVertices[vertexIndex++] = z;
         } else if (line[0] == 'l' && line[1] == ' ') {
             int indices[2];
             sscanf(line, "l %d %d", &indices[0], &indices[1]);
-            cubeIndices[faceIndex * 2] = indices[0] - 1;
-            cubeIndices[faceIndex * 2 + 1] = indices[1] - 1;
-            faceIndex++;
+            cubeIndices[faceIndex++] = indices[0] - 1;
+            cubeIndices[faceIndex++] = indices[1] - 1;
         }
     }
     fclose(file);
@@ -63,7 +61,7 @@ void parseObjFile(const char *filename) {
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {
-    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/cube.obj");
+    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/line_cube.obj");
 }
 
 void GLWidget::initializeGL()
