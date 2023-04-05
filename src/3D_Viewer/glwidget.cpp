@@ -53,7 +53,9 @@ void parseObjFile(const char *filename) {
         // Parse the perfect face-style obj file
           else if (line[0] == 'f' && line[1] == ' ' && line[3] == ' ') {
             int indices[3];
-            sscanf(line, "f %d %d %d", &indices[0], &indices[1], &indices[2]);
+            if (strchr(line, '/') == NULL) {
+                sscanf(line, "f %d %d %d", &indices[0], &indices[1], &indices[2]);
+            }
             for (int i = 0; i < 3; i++) {
                 // Convert to zero-based index
                 --indices[i];
@@ -78,8 +80,11 @@ GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/line_cube.obj");
-    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/cube.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/cube.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/teapot.obj");
+    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/glass.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/pyramid.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/octahedron.obj");
 }
 
 void GLWidget::initializeGL()
