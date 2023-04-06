@@ -3,7 +3,7 @@
 int n_vertices = 1;
 int n_indices = 1;
 
-double* cubeVertices = NULL;
+float* cubeVertices = NULL;
 unsigned int* cubeIndices = NULL;
 
 
@@ -32,13 +32,13 @@ void parseObjFile(const char *filename) {
 
     rewind(file);
 
-    cubeVertices = (double*)malloc(n_vertices * 3 * sizeof(double));
+    cubeVertices = (float*)malloc(n_vertices * 3 * sizeof(float));
     cubeIndices = (unsigned int*)malloc(n_indices * sizeof(unsigned int));
 
     while (getline(&line, &len, file) != -1) {
         if (line[0] == 'v' && line[1] == ' ') {
-            double x, y, z;
-            sscanf(line, "v %lf %lf %lf", &x, &y, &z);
+            float x, y, z;
+            sscanf(line, "v %f %f %f", &x, &y, &z);
             cubeVertices[vertexIndex++] = x;
             cubeVertices[vertexIndex++] = y;
             cubeVertices[vertexIndex++] = z;
@@ -55,6 +55,8 @@ void parseObjFile(const char *filename) {
             int indices[3];
             if (strchr(line, '/') == NULL) {
                 sscanf(line, "f %d %d %d", &indices[0], &indices[1], &indices[2]);
+            } else {
+                sscanf(line, "f %d/%*d/%*d %d/%*d/%*d %d/%*d/%*d", &indices[0], &indices[1], &indices[2]);
             }
             for (int i = 0; i < 3; i++) {
                 // Convert to zero-based index
@@ -79,12 +81,13 @@ void parseObjFile(const char *filename) {
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/line_cube.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/cube.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/teapot.obj");
-    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/glass.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/pyramid.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/octahedron.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_line.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
+    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_second.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/teapot.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/glass.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/pyramid.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/octahedron.obj");
 }
 
 void GLWidget::initializeGL()
@@ -93,7 +96,7 @@ void GLWidget::initializeGL()
     // Enable the use of vertex arrays for drawing
     glEnableClientState(GL_VERTEX_ARRAY);
     // Specify the format and the location of the vertex data in the array
-    glVertexPointer(3, GL_DOUBLE, 0, cubeVertices);
+    glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
 }
 
 void GLWidget::paintGL()
