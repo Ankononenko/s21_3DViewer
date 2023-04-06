@@ -25,7 +25,7 @@ void parseObjFile(const char *filename) {
             n_vertices++;
         } else if (line[0] == 'l' && line[1] == ' ') {
             n_indices += 2;
-        } else if (line[0] == 'f' && line[1] == ' ' && line[3] == ' ') {
+        } else if (line[0] == 'f' && line[1] == ' ') {
             n_indices += 6;
         }
     }
@@ -51,7 +51,7 @@ void parseObjFile(const char *filename) {
             cubeIndices[faceIndex++] = indices[1] - 1;
         }
         // Parse the perfect face-style obj file
-          else if (line[0] == 'f' && line[1] == ' ' && line[3] == ' ') {
+          else if (line[0] == 'f' && line[1] == ' ') {
             int indices[3];
             if (strchr(line, '/') == NULL) {
                 sscanf(line, "f %d %d %d", &indices[0], &indices[1], &indices[2]);
@@ -83,7 +83,7 @@ GLWidget::GLWidget(QWidget *parent)
 {
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_line.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
-    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_second.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_second.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/teapot.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/glass.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/pyramid.obj");
