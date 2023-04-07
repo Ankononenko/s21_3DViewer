@@ -7,6 +7,9 @@
 #include <QMatrix4x4>
 #include <QOpenGLShaderProgram>
 
+// For max and min
+#include <cfloat>
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>

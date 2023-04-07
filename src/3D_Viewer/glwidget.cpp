@@ -6,7 +6,6 @@ int n_indices = 1;
 float* cubeVertices = NULL;
 unsigned int* cubeIndices = NULL;
 
-
 void parseObjFile(const char *filename) {
     int vertexIndex = 0;
     int faceIndex = 0;
@@ -20,9 +19,20 @@ void parseObjFile(const char *filename) {
     char* line = NULL;
     size_t len = 0;
 
+    float min_x = FLT_MAX, min_y = FLT_MAX, min_z = FLT_MAX;
+    float max_x = FLT_MIN, max_y = FLT_MIN, max_z = FLT_MIN;
+
     while (getline(&line, &len, file) != -1) {
         if (line[0] == 'v' && line[1] == ' ') {
             n_vertices++;
+            float x, y, z;
+            sscanf(line, "v %f %f %f", &x, &y, &z);
+            min_x = fmin(min_x, x);
+            min_y = fmin(min_y, y);
+            min_z = fmin(min_z, z);
+            max_x = fmax(max_x, x);
+            max_y = fmax(max_y, y);
+            max_z = fmax(max_z, z);
         } else if (line[0] == 'l' && line[1] == ' ') {
             n_indices += 2;
         } else if (line[0] == 'f' && line[1] == ' ') {
@@ -32,6 +42,8 @@ void parseObjFile(const char *filename) {
 
     rewind(file);
 
+    float max_range = fmax(fmax(max_x - min_x, max_y - min_y), max_z - min_z);
+
     cubeVertices = (float*)malloc(n_vertices * 3 * sizeof(float));
     cubeIndices = (unsigned int*)malloc(n_indices * sizeof(unsigned int));
 
@@ -39,9 +51,9 @@ void parseObjFile(const char *filename) {
         if (line[0] == 'v' && line[1] == ' ') {
             float x, y, z;
             sscanf(line, "v %f %f %f", &x, &y, &z);
-            cubeVertices[vertexIndex++] = x;
-            cubeVertices[vertexIndex++] = y;
-            cubeVertices[vertexIndex++] = z;
+            cubeVertices[vertexIndex++] = (x - min_x) / max_range;
+            cubeVertices[vertexIndex++] = (y - min_y) / max_range;
+            cubeVertices[vertexIndex++] = (z - min_z) / max_range;
         }
         // Parse the line-style obj file
           else if (line[0] == 'l' && line[1] == ' ') {
@@ -85,9 +97,12 @@ GLWidget::GLWidget(QWidget *parent)
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_second.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/teapot.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/test_teapot.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/glass.obj");
+    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/apple.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/pyramid.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/octahedron.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/test.obj");
 }
 
 void GLWidget::initializeGL()
