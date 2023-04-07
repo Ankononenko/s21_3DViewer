@@ -9,6 +9,7 @@
 
 // For max and min
 #include <cfloat>
+#include <cmath>
 
 #include <stdio.h>
 #include <string.h>

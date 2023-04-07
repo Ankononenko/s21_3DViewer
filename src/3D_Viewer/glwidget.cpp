@@ -96,10 +96,10 @@ GLWidget::GLWidget(QWidget *parent)
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_line.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_second.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/teapot.obj");
+    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/teapot.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/test_teapot.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/glass.obj");
-    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/apple.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/apple.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/pyramid.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/octahedron.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/test.obj");
