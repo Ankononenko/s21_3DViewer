@@ -1,7 +1,7 @@
 #include "glwidget.h"
 
-int n_vertices = 1;
-int n_indices = 1;
+int n_vertices = 0;
+int n_indices = 0;
 
 float* cubeVertices = NULL;
 unsigned int* cubeIndices = NULL;
@@ -75,13 +75,12 @@ void parseObjFile(const char *filename) {
                 --indices[i];
             }
             // Triangulate and convert to line segments
-            cubeIndices[faceIndex * 6] = indices[0];
-            cubeIndices[faceIndex * 6 + 1] = indices[1];
-            cubeIndices[faceIndex * 6 + 2] = indices[1];
-            cubeIndices[faceIndex * 6 + 3] = indices[2];
-            cubeIndices[faceIndex * 6 + 4] = indices[2];
-            cubeIndices[faceIndex * 6 + 5] = indices[0];
-            faceIndex++;
+            cubeIndices[faceIndex++] = indices[0];
+            cubeIndices[faceIndex++] = indices[1];
+            cubeIndices[faceIndex++] = indices[1];
+            cubeIndices[faceIndex++] = indices[2];
+            cubeIndices[faceIndex++] = indices[2];
+            cubeIndices[faceIndex++] = indices[0];
         }
     }
     fclose(file);
@@ -96,13 +95,13 @@ GLWidget::GLWidget(QWidget *parent)
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_line.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_second.obj");
-    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/teapot.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/test_teapot.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/teapot.obj");
+//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cp_teapot.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/glass.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/apple.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/pyramid.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/octahedron.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/test.obj");
+    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cat.obj");
 }
 
 void GLWidget::initializeGL()
