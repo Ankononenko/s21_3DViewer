@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "glwidget.h"
+#include <QFileDialog>
+#include <QDebug>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,6 +25,8 @@ private slots:
 //    void on_smallerButton_clicked();
 
 //    void on_biggerButton_clicked();
+
+    void on_loadModelFileButton_clicked();
 
 private:
     Ui::MainWindow *ui;

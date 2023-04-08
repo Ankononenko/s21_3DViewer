@@ -32,3 +32,16 @@ void MainWindow::on_QuitButton_clicked()
 //    float currentScale = glWidget->getScaleFactor();
 //    glWidget->setScaleFactor(currentScale * 1.1f); // 10% bigger
 //}
+
+void MainWindow::on_loadModelFileButton_clicked()
+{
+    QString fileFilter = "OBJ Files (*.obj);;All Files (*)";
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Load Model File"), "", fileFilter);
+
+    if (!fileName.isEmpty()) {
+        qDebug() << "Selected file:" << fileName;
+        GLWidget *glWidget = findChild<GLWidget*>("openGLWidget");
+        glWidget->loadModel(fileName);
+    }
+}
+

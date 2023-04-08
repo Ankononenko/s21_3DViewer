@@ -167,3 +167,29 @@ GLWidget::~GLWidget()
         free(cubeIndices);
     }
 }
+
+void GLWidget::loadModel(const QString& fileName)
+{
+    QByteArray byteArray = fileName.toLocal8Bit();
+    const char* filePath = byteArray.constData();
+
+    if (cubeVertices) {
+        free(cubeVertices);
+        cubeVertices = NULL;
+    }
+    if (cubeIndices) {
+        free(cubeIndices);
+        cubeIndices = NULL;
+    }
+
+    n_vertices = 0;
+    n_indices = 0;
+
+    parseObjFile(filePath);
+
+    // Update the vertex and index pointers used in paintGL()
+    glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
+
+    update();
+}
+

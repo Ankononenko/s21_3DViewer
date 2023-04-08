@@ -24,6 +24,7 @@ public:
     ~GLWidget();
     float getScaleFactor() const;
     void setScaleFactor(float newScaleFactor);
+    void loadModel(const QString& fileName);
 
 protected:
     void initializeGL() override;
