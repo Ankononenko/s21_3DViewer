@@ -157,6 +157,10 @@ void GLWidget::paintGL()
     glPointSize(3.0f);
     glLineWidth(1.0f);
 
+    // Update the vertex and index pointers every time paintGL is called
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
+
     // Draw the points
     glDrawArrays(GL_POINTS, 0, n_vertices);
 
@@ -196,20 +200,18 @@ void GLWidget::loadModel(const QString& fileName)
         cubeIndices = NULL;
     }
 
+    // Reset n_vertices and n_indices before parsing the new file
     n_vertices = 0;
     n_indices = 0;
 
     parseObjFile(filePath);
 
-
     qDebug() << "Finished parsing the OBJ file";
 
     // Update the vertex and index pointers used in paintGL()
-    glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
-
-    //    initializeGL();
-    //    paintGL();
+//    glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
 
     update();
 }
+
 
