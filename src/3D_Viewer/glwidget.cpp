@@ -1,7 +1,7 @@
 #include "glwidget.h"
 
 int n_vertices = 0;
-int n_indices = 0   ;
+int n_indices = 0;
 
 float* cubeVertices = NULL;
 unsigned int* cubeIndices = NULL;
@@ -103,6 +103,8 @@ GLWidget::GLWidget(QWidget *parent)
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cat.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cow.obj");
 //    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/one_million.obj");
+    // The initial color
+    backgroundColor = QColor(0, 0, 0);
 }
 
 void GLWidget::initializeGL()
@@ -112,12 +114,17 @@ void GLWidget::initializeGL()
     glEnableClientState(GL_VERTEX_ARRAY);
     // Specify the format and the location of the vertex data in the array
     glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
+    qDebug() << "OpenGL initialized";
 }
 
 void GLWidget::paintGL()
 {
+    glEnable(GL_DEPTH_TEST); // Enable depth testing
+
     // Set background color: RGB and opacity
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+//    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(backgroundColor.redF(), backgroundColor.greenF(), backgroundColor.blueF(), backgroundColor.alphaF());
+
 
     // Clear the color buffer (color values of the pixels displayed on the screen)
     // and depth buffer (distance of each pixel)
@@ -146,11 +153,17 @@ void GLWidget::paintGL()
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixf(modelView.constData());
 
+    // Change point size and line width
+    glPointSize(3.0f);
+    glLineWidth(1.0f);
+
     // Draw the points
     glDrawArrays(GL_POINTS, 0, n_vertices);
 
     // Draw the lines
     glDrawElements(GL_LINES, n_indices, GL_UNSIGNED_INT, cubeIndices);
+
+    qDebug() << "PaintGL finished";
 }
 
 void GLWidget::resizeGL(int width, int height)
@@ -188,8 +201,14 @@ void GLWidget::loadModel(const QString& fileName)
 
     parseObjFile(filePath);
 
+
+    qDebug() << "Finished parsing the OBJ file";
+
     // Update the vertex and index pointers used in paintGL()
     glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
+
+    //    initializeGL();
+    //    paintGL();
 
     update();
 }

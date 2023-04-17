@@ -5,6 +5,7 @@
 #include "glwidget.h"
 #include <QFileDialog>
 #include <QDebug>
+#include <QColorDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,6 +28,9 @@ private slots:
 //    void on_biggerButton_clicked();
 
     void on_loadModelFileButton_clicked();
+
+    void on_changeBGColorButton_clicked();
+    void changeBackgroundColor(const QColor &color);
 
 private:
     Ui::MainWindow *ui;

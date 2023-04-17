@@ -25,6 +25,8 @@ public:
     float getScaleFactor() const;
     void setScaleFactor(float newScaleFactor);
     void loadModel(const QString& fileName);
+    QColor getBackgroundColor() const { return backgroundColor; }
+    void setBackgroundColor(const QColor &color) { backgroundColor = color; }
 
 protected:
     void initializeGL() override;
@@ -33,6 +35,7 @@ protected:
 
 private:
     float scaleFactor;
+    QColor backgroundColor;
 };
 
 #endif // GLWIDGET_H
