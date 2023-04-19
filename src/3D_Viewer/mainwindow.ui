@@ -61,7 +61,7 @@
       <x>20</x>
       <y>140</y>
       <width>271</width>
-      <height>120</height>
+      <height>121</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="moveModelGridLayout">
@@ -71,45 +71,13 @@
      <property name="spacing">
       <number>6</number>
      </property>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="biggerButton">
-       <property name="text">
-        <string>Bigger</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="moveRightButton">
-       <property name="text">
-        <string>Right</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="moveLeftButton">
        <property name="text">
         <string>Left</string>
        </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="moveBackwardButton">
-       <property name="text">
-        <string>Backward</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="smallerButton">
-       <property name="text">
-        <string>Smaller</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="moveUpButton">
-       <property name="text">
-        <string>Up</string>
+       <property name="shortcut">
+        <string>4</string>
        </property>
       </widget>
      </item>
@@ -118,12 +86,68 @@
        <property name="text">
         <string>Down</string>
        </property>
+       <property name="shortcut">
+        <string>2</string>
+       </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="5" column="0">
+      <widget class="QPushButton" name="smallerButton">
+       <property name="text">
+        <string>Smaller</string>
+       </property>
+       <property name="shortcut">
+        <string>/</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="biggerButton">
+       <property name="text">
+        <string>Bigger</string>
+       </property>
+       <property name="shortcut">
+        <string>*</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="moveRightButton">
+       <property name="text">
+        <string>Right</string>
+       </property>
+       <property name="shortcut">
+        <string>6</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="moveUpButton">
+       <property name="text">
+        <string>Up</string>
+       </property>
+       <property name="shortcut">
+        <string>8</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
       <widget class="QPushButton" name="moveForwardButton">
        <property name="text">
         <string>Forward</string>
+       </property>
+       <property name="shortcut">
+        <string>1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="moveBackwardButton">
+       <property name="text">
+        <string>Backward</string>
+       </property>
+       <property name="shortcut">
+        <string>9</string>
        </property>
       </widget>
      </item>
@@ -327,7 +351,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>440</y>
+      <y>450</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -349,7 +373,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>470</y>
+      <y>480</y>
       <width>271</width>
       <height>89</height>
      </rect>
@@ -396,7 +420,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>560</y>
+      <y>570</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -418,7 +442,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>590</y>
+      <y>600</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -451,7 +475,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>620</y>
+      <y>630</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -473,7 +497,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>650</y>
+      <y>660</y>
       <width>271</width>
       <height>58</height>
      </rect>
