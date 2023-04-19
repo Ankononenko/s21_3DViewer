@@ -55,3 +55,13 @@ void MainWindow::changeBackgroundColor(const QColor &color)
     }
 }
 
+
+void MainWindow::on_smallerButton_clicked()
+{
+    glWidget->scaleModel(0.9f);
+}
+
+void MainWindow::on_biggerButton_clicked()
+{
+    glWidget->scaleModel(1.1f);
+}

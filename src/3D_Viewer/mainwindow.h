@@ -26,6 +26,10 @@ private slots:
     void on_changeBGColorButton_clicked();
     void changeBackgroundColor(const QColor &color);
 
+    void on_smallerButton_clicked();
+
+    void on_biggerButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     GLWidget *glWidget;

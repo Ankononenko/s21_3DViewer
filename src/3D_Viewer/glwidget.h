@@ -25,6 +25,7 @@ public:
     void loadModel(const QString& fileName);
     QColor getBackgroundColor() const { return backgroundColor; }
     void setBackgroundColor(const QColor &color) { backgroundColor = color; }
+    void scaleModel(float scaleFactor);
 
 protected:
     void initializeGL() override;

@@ -89,6 +89,14 @@ void parseObjFile(const char *filename) {
     }
 }
 
+void GLWidget::scaleModel(float scaleFactor)
+{
+    for (int i = 0; i < n_vertices * 3; i++) {
+        cubeVertices[i] *= scaleFactor;
+    }
+    update();
+}
+
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {
