@@ -92,17 +92,7 @@ void parseObjFile(const char *filename) {
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_line.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cube_second.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/teapot.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/glass.obj");
     parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/apple.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/pyramid.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/octahedron.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cat.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/cow.obj");
-//    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/one_million.obj");
     // The initial color
     backgroundColor = QColor(0, 0, 0);
 }
@@ -207,9 +197,6 @@ void GLWidget::loadModel(const QString& fileName)
     parseObjFile(filePath);
 
     qDebug() << "Finished parsing the OBJ file";
-
-    // Update the vertex and index pointers used in paintGL()
-//    glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
 
     update();
 }

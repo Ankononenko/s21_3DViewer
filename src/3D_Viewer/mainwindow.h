@@ -22,13 +22,7 @@ public:
 private slots:
 
     void on_QuitButton_clicked();
-
-//    void on_smallerButton_clicked();
-
-//    void on_biggerButton_clicked();
-
     void on_loadModelFileButton_clicked();
-
     void on_changeBGColorButton_clicked();
     void changeBackgroundColor(const QColor &color);
 

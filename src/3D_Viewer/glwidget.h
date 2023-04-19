@@ -22,8 +22,6 @@ public:
     explicit GLWidget(QWidget *parent = nullptr);
     // Destructor declaration for the frees of the arrays
     ~GLWidget();
-    float getScaleFactor() const;
-    void setScaleFactor(float newScaleFactor);
     void loadModel(const QString& fileName);
     QColor getBackgroundColor() const { return backgroundColor; }
     void setBackgroundColor(const QColor &color) { backgroundColor = color; }
