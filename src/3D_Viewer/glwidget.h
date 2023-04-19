@@ -26,6 +26,7 @@ public:
     QColor getBackgroundColor() const { return backgroundColor; }
     void setBackgroundColor(const QColor &color) { backgroundColor = color; }
     void scaleModel(float scaleFactor);
+    void moveModel(float x, float y, float z);
 
 protected:
     void initializeGL() override;

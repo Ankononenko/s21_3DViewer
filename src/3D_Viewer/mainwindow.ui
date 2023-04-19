@@ -59,9 +59,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>150</y>
+      <y>140</y>
       <width>271</width>
-      <height>97</height>
+      <height>120</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="moveModelGridLayout">
@@ -71,6 +71,34 @@
      <property name="spacing">
       <number>6</number>
      </property>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="biggerButton">
+       <property name="text">
+        <string>Bigger</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="moveRightButton">
+       <property name="text">
+        <string>Right</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="moveLeftButton">
+       <property name="text">
+        <string>Left</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="moveBackwardButton">
+       <property name="text">
+        <string>Backward</string>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="smallerButton">
        <property name="text">
@@ -85,20 +113,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="moveRightButton">
-       <property name="text">
-        <string>Right</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="biggerButton">
-       <property name="text">
-        <string>Bigger</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="moveDownButton">
        <property name="text">
@@ -106,10 +120,10 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="moveLeftButton">
+     <item row="3" column="0">
+      <widget class="QPushButton" name="moveForwardButton">
        <property name="text">
-        <string>Left</string>
+        <string>Forward</string>
        </property>
       </widget>
      </item>
@@ -119,7 +133,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>120</y>
+      <y>110</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -261,11 +275,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>390</y>
+      <y>380</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -283,11 +297,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>420</y>
+      <y>410</y>
       <width>271</width>
       <height>27</height>
      </rect>
@@ -309,11 +323,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>460</y>
+      <y>440</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -331,11 +345,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>490</y>
+      <y>470</y>
       <width>271</width>
       <height>89</height>
      </rect>
@@ -378,11 +392,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>590</y>
+      <y>560</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -400,11 +414,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>620</y>
+      <y>590</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -433,11 +447,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>660</y>
+      <y>620</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -455,11 +469,11 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>690</y>
+      <y>650</y>
       <width>271</width>
       <height>58</height>
      </rect>
@@ -488,7 +502,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>

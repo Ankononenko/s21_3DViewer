@@ -26,8 +26,13 @@ private slots:
     void on_changeBGColorButton_clicked();
     void changeBackgroundColor(const QColor &color);
 
+    void on_moveUpButton_clicked();
+    void on_moveDownButton_clicked();
+    void on_moveLeftButton_clicked();
+    void on_moveRightButton_clicked();
+    void on_moveForwardButton_clicked();
+    void on_moveBackwardButton_clicked();
     void on_smallerButton_clicked();
-
     void on_biggerButton_clicked();
 
 private:

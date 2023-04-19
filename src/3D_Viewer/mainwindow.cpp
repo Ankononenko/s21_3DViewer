@@ -35,7 +35,6 @@ void MainWindow::on_loadModelFileButton_clicked()
     }
 }
 
-
 void MainWindow::on_changeBGColorButton_clicked()
 {
     QColor initialColor = glWidget->getBackgroundColor();
@@ -55,6 +54,35 @@ void MainWindow::changeBackgroundColor(const QColor &color)
     }
 }
 
+void MainWindow::on_moveUpButton_clicked()
+{
+    glWidget->moveModel(0, 0.1f, 0);
+}
+
+void MainWindow::on_moveDownButton_clicked()
+{
+    glWidget->moveModel(0, -0.1f, 0);
+}
+
+void MainWindow::on_moveLeftButton_clicked()
+{
+    glWidget->moveModel(-0.1f, 0, 0);
+}
+
+void MainWindow::on_moveRightButton_clicked()
+{
+    glWidget->moveModel(0.1f, 0, 0);
+}
+
+void MainWindow::on_moveForwardButton_clicked()
+{
+    glWidget->moveModel(0, 0, 0.1f);
+}
+
+void MainWindow::on_moveBackwardButton_clicked()
+{
+    glWidget->moveModel(0, 0, -0.1f);
+}
 
 void MainWindow::on_smallerButton_clicked()
 {

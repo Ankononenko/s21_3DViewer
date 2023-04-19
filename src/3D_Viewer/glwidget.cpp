@@ -97,10 +97,20 @@ void GLWidget::scaleModel(float scaleFactor)
     update();
 }
 
+void GLWidget::moveModel(float x, float y, float z)
+{
+    for (int i = 0; i < n_vertices * 3; i += 3) {
+        cubeVertices[i] += x;
+        cubeVertices[i + 1] += y;
+        cubeVertices[i + 2] += z;
+    }
+    update();
+}
+
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {
-    parseObjFile("/home/finchren/school/s21_3DViewer/src/3D_Viewer/models/apple.obj");
+    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/apple.obj");
     // The initial color
     backgroundColor = QColor(0, 0, 0);
 }
