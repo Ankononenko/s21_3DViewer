@@ -36,6 +36,13 @@ private slots:
     void on_smallerButton_clicked();
     void on_biggerButton_clicked();
 
+    void on_rotateUpButton_clicked();
+    void on_rotateDownButton_clicked();
+    void on_rotateLeftButton_clicked();
+    void on_rotateRightButton_clicked();
+    void on_rotateClockwiseButton_clicked();
+    void on_rotateCounterclockwiseButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     GLWidget *glWidget;

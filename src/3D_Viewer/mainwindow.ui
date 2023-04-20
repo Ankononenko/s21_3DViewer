@@ -215,12 +215,18 @@
        <property name="text">
         <string>Up</string>
        </property>
+       <property name="shortcut">
+        <string>Ctrl+8</string>
+       </property>
       </widget>
      </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="rotateDownButton">
        <property name="text">
         <string>Down</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+2</string>
        </property>
       </widget>
      </item>
@@ -229,12 +235,18 @@
        <property name="text">
         <string>Left</string>
        </property>
+       <property name="shortcut">
+        <string>Ctrl+4</string>
+       </property>
       </widget>
      </item>
      <item row="1" column="1">
       <widget class="QPushButton" name="rotateRightButton">
        <property name="text">
         <string>Right</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+6</string>
        </property>
       </widget>
      </item>
@@ -243,12 +255,18 @@
        <property name="text">
         <string>Clockwise</string>
        </property>
+       <property name="shortcut">
+        <string>Ctrl+1</string>
+       </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QPushButton" name="rotateCounterclockwiseButton">
        <property name="text">
         <string>Counterclockwise</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+9</string>
        </property>
       </widget>
      </item>

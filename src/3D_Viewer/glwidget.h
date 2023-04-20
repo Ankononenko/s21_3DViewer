@@ -27,6 +27,7 @@ public:
     void setBackgroundColor(const QColor &color) { backgroundColor = color; }
     void scaleModel(float scaleFactor);
     void moveModel(float x, float y, float z);
+    void rotateModel(float xAngle, float yAngle, float zAngle);
 
 protected:
     void initializeGL() override;

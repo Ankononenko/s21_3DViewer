@@ -107,6 +107,23 @@ void GLWidget::moveModel(float x, float y, float z)
     update();
 }
 
+void GLWidget::rotateModel(float xAngle, float yAngle, float zAngle)
+{
+    QMatrix4x4 rotationMatrix;
+    rotationMatrix.rotate(xAngle, QVector3D(1.0f, 0.0f, 0.0f));
+    rotationMatrix.rotate(yAngle, QVector3D(0.0f, 1.0f, 0.0f));
+    rotationMatrix.rotate(zAngle, QVector3D(0.0f, 0.0f, 1.0f));
+
+    for (int i = 0; i < n_vertices * 3; i += 3) {
+        QVector3D vertex(cubeVertices[i], cubeVertices[i + 1], cubeVertices[i + 2]);
+        vertex = rotationMatrix * vertex;
+        cubeVertices[i] = vertex.x();
+        cubeVertices[i + 1] = vertex.y();
+        cubeVertices[i + 2] = vertex.z();
+    }
+    update();
+}
+
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {

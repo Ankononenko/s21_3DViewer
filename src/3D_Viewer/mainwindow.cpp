@@ -93,3 +93,33 @@ void MainWindow::on_biggerButton_clicked()
 {
     glWidget->scaleModel(1.1f);
 }
+
+void MainWindow::on_rotateUpButton_clicked()
+{
+    glWidget->rotateModel(-10.0f, 0.0f, 0.0f);
+}
+
+void MainWindow::on_rotateDownButton_clicked()
+{
+    glWidget->rotateModel(10.0f, 0.0f, 0.0f);
+}
+
+void MainWindow::on_rotateLeftButton_clicked()
+{
+    glWidget->rotateModel(0.0f, -10.0f, 0.0f);
+}
+
+void MainWindow::on_rotateRightButton_clicked()
+{
+    glWidget->rotateModel(0.0f, 10.0f, 0.0f);
+}
+
+void MainWindow::on_rotateClockwiseButton_clicked()
+{
+    glWidget->rotateModel(0.0f, 0.0f, -10.0f);
+}
+
+void MainWindow::on_rotateCounterclockwiseButton_clicked()
+{
+    glWidget->rotateModel(0.0f, 0.0f, 10.0f);
+}
