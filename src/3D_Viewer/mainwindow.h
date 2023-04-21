@@ -43,6 +43,9 @@ private slots:
     void on_rotateClockwiseButton_clicked();
     void on_rotateCounterclockwiseButton_clicked();
 
+    void on_parallelButton_clicked();
+    void on_centralButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     GLWidget *glWidget;

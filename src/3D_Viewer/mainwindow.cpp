@@ -123,3 +123,13 @@ void MainWindow::on_rotateCounterclockwiseButton_clicked()
 {
     glWidget->rotateModel(0.0f, 0.0f, 10.0f);
 }
+
+void MainWindow::on_parallelButton_clicked()
+{
+    glWidget->setParallelProjection();
+}
+
+void MainWindow::on_centralButton_clicked()
+{
+    glWidget->setCentralProjection();
+}

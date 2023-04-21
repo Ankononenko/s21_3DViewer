@@ -28,6 +28,8 @@ public:
     void scaleModel(float scaleFactor);
     void moveModel(float x, float y, float z);
     void rotateModel(float xAngle, float yAngle, float zAngle);
+    void setParallelProjection();
+    void setCentralProjection();
 
 protected:
     void initializeGL() override;
@@ -37,6 +39,9 @@ protected:
 private:
     float scaleFactor;
     QColor backgroundColor;
+    // Set up the projection matrix
+    // QMatrix4x4 is a data type that represents a 4x4 matrix, used for transformations in 3D graphics
+    QMatrix4x4 projectionMatrix;
 };
 
 #endif // GLWIDGET_H

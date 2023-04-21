@@ -127,7 +127,8 @@ void GLWidget::rotateModel(float xAngle, float yAngle, float zAngle)
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {
-    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/apple.obj");
+    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
+    //    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/apple.obj");
     // The initial color
     backgroundColor = QColor(0, 0, 0);
 }
@@ -147,24 +148,16 @@ void GLWidget::paintGL()
     glEnable(GL_DEPTH_TEST); // Enable depth testing
 
     // Set background color: RGB and opacity
-//    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    //    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClearColor(backgroundColor.redF(), backgroundColor.greenF(), backgroundColor.blueF(), backgroundColor.alphaF());
-
 
     // Clear the color buffer (color values of the pixels displayed on the screen)
     // and depth buffer (distance of each pixel)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // Set up the projection matrix
-    // QMatrix4x4 is a data type that represents a 4x4 matrix, used for transformations in 3D graphics
-    QMatrix4x4 projection;
-    // First value - field of view angle in degrees. Determines how much of the scene is visible
-    // Second value - aspect ratio of the screen. Ensures that the scene is displayed properly on screens of different sizes and aspect ratios
-    // Third value - distance from the viewer to the near clipping plane, which determines how close objects can be to the viewer before they are clipped (not rendered)
-    // Forth value - distance from the viewer to the far clipping plane, which determines how far objects can be from the viewer before they are clipped
-    // Clipping is necessary because the graphics pipeline can only render objects that are within a certain range of distances from the viewer, and any objects that fall outside of this range are clipped or removed from the scene before rendering.
-    projection.perspective(50.0, (double)width() / height(), 0.1, 100.0);
+    glLoadMatrixf(projectionMatrix.constData());
 
+    // QMatrix4x4 is a data type that represents a 4x4 matrix, used for transformations in 3D graphics
     // Set up the model-view matrix
     QMatrix4x4 modelView;
     // First set of values - position of the camera
@@ -174,7 +167,7 @@ void GLWidget::paintGL()
 
     // Load the projection and model-view matrices
     glMatrixMode(GL_PROJECTION);
-    glLoadMatrixf(projection.constData());
+    glLoadMatrixf(projectionMatrix.constData());
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixf(modelView.constData());
 
@@ -198,7 +191,13 @@ void GLWidget::paintGL()
 void GLWidget::resizeGL(int width, int height)
 {
     glViewport(0, 0, width, height);
+
+    // setToIdentity resets the projection matrix
+    projectionMatrix.setToIdentity();
+    projectionMatrix.perspective(50.0, (double)width / height, 0.1, 100.0);
+    update();
 }
+
 
 // Destructor class
 GLWidget::~GLWidget()
@@ -236,4 +235,28 @@ void GLWidget::loadModel(const QString& fileName)
     update();
 }
 
+void GLWidget::setParallelProjection()
+{
+    projectionMatrix.setToIdentity();
+    // Define the orthogonal (parallel) projection matrix's clipping planes:
+    //    -1.0: left plane
+    //    1.0: right plane
+    //    -1.0: bottom plane
+    //    1.0: top plane
+    //    0.1: near plane (closest distance to the camera where objects are still visible)
+    //    100.0: far plane (farthest distance from the camera where objects are still visible)
+    projectionMatrix.ortho(-1.0, 1.0, -1.0, 1.0, 0.1, 100.0);
+    update();
+}
 
+void GLWidget::setCentralProjection()
+{
+    projectionMatrix.setToIdentity();
+    // First value - field of view angle in degrees. Determines how much of the scene is visible
+    // Second value - aspect ratio of the screen. Ensures that the scene is displayed properly on screens of different sizes and aspect ratios
+    // Third value - distance from the viewer to the near clipping plane, which determines how close objects can be to the viewer before they are clipped (not rendered)
+    // Forth value - distance from the viewer to the far clipping plane, which determines how far objects can be from the viewer before they are clipped
+    // Clipping is necessary because the graphics pipeline can only render objects that are within a certain range of distances from the viewer, and any objects that fall outside of this range are clipped or removed from the scene before rendering.
+    projectionMatrix.perspective(50.0, (double)width() / height(), 0.1, 100.0);
+    update();
+}
