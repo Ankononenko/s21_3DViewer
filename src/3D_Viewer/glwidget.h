@@ -6,6 +6,7 @@
 #include <QOpenGLExtraFunctions>
 #include <QMatrix4x4>
 #include <QOpenGLShaderProgram>
+#include <QSettings>
 
 // For max and min
 #include <cfloat>
@@ -40,6 +41,8 @@ public:
         Square
     };
     void setVertexDisplayMethod(VertexDisplayMethod method);
+    void saveSettings();
+    void loadSettings();
 
 protected:
     void initializeGL() override;
@@ -49,6 +52,9 @@ protected:
 private:
     float scaleFactor;
     float vertexSize;
+    bool isParallelProjection;
+    bool isDashedEdges;
+    float edgeThickness;
     QColor backgroundColor;
     // Set up the projection matrix
     // QMatrix4x4 is a data type that represents a 4x4 matrix, used for transformations in 3D graphics

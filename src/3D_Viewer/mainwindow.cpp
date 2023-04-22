@@ -150,6 +150,7 @@ void MainWindow::on_thickerButton_clicked()
     glWidget->setEdgeStyle(0xFFFF, 0.5f);
 }
 
+
 void MainWindow::on_edgesColorButton_clicked()
 {
     QColor initialColor = Qt::white;
@@ -191,4 +192,3 @@ void MainWindow::on_squareDisplayMethodButton_clicked() {
 void MainWindow::on_circleDisplayMethodButton_clicked() {
     glWidget->setVertexDisplayMethod(GLWidget::Circle);
 }
-

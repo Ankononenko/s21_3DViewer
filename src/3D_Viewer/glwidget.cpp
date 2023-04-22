@@ -127,6 +127,9 @@ void GLWidget::rotateModel(float xAngle, float yAngle, float zAngle)
 GLWidget::GLWidget(QWidget *parent)
     : QOpenGLWidget(parent)
 {
+    // Make sure the widget has a valid OpenGL context
+    setFormat(QSurfaceFormat::defaultFormat());
+
     parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
     //    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/apple.obj");
     // The initial color
@@ -137,6 +140,7 @@ GLWidget::GLWidget(QWidget *parent)
     vertexColor = QColor(255, 255, 255);
     // Set the initial edge color to white
     edgeColor = QColor(255, 255, 255);
+    loadSettings();
 }
 
 void GLWidget::initializeGL()
@@ -245,6 +249,7 @@ void GLWidget::resizeGL(int width, int height)
 // Destructor class
 GLWidget::~GLWidget()
 {
+    saveSettings();
     if (cubeVertices) {
         free(cubeVertices);
     }
@@ -289,6 +294,7 @@ void GLWidget::setParallelProjection()
     //    0.1: near plane (closest distance to the camera where objects are still visible)
     //    100.0: far plane (farthest distance from the camera where objects are still visible)
     projectionMatrix.ortho(-1.0, 1.0, -1.0, 1.0, 0.1, 100.0);
+    isParallelProjection = true;
     update();
 }
 
@@ -301,6 +307,7 @@ void GLWidget::setCentralProjection()
     // Forth value - distance from the viewer to the far clipping plane, which determines how far objects can be from the viewer before they are clipped
     // Clipping is necessary because the graphics pipeline can only render objects that are within a certain range of distances from the viewer, and any objects that fall outside of this range are clipped or removed from the scene before rendering.
     projectionMatrix.perspective(50.0, (double)width() / height(), 0.1, 100.0);
+    isParallelProjection = false;
     update();
 }
 
@@ -314,6 +321,12 @@ void GLWidget::setEdgeStyle(unsigned int style, float widthIncrement)
     if (newWidth < 1.0f) {
         newWidth = 1.0f;
     }
+    if (style == 0x00FF) {
+        isDashedEdges = true;
+    } else {
+        isDashedEdges = false;
+    }
+    edgeThickness += widthIncrement;
     glLineWidth(newWidth);
     update();
 }
@@ -341,4 +354,55 @@ void GLWidget::setVertexColor(const QColor &color) {
 void GLWidget::setVertexDisplayMethod(VertexDisplayMethod method) {
     vertexDisplayMethod = method;
     update();
+}
+
+void GLWidget::saveSettings()
+{
+    QSettings settings("finchren", "3D_Viewer");
+    settings.setValue("backgroundColor", backgroundColor);
+    settings.setValue("scaleFactor", scaleFactor);
+    settings.setValue("vertexSize", vertexSize);
+    settings.setValue("vertexColor", vertexColor);
+    settings.setValue("edgeColor", edgeColor);
+    settings.setValue("vertexDisplayMethod", vertexDisplayMethod);
+}
+
+void GLWidget::loadSettings() {
+    QSettings settings("finchren", "3D_Viewer");
+
+    if (settings.contains("backgroundColor")) {
+        backgroundColor = settings.value("backgroundColor").value<QColor>();
+    } else {
+        backgroundColor = QColor(0, 0, 0);
+    }
+
+    if (settings.contains("scaleFactor")) {
+        scaleFactor = settings.value("scaleFactor").toFloat();
+    } else {
+        scaleFactor = 1.0f;
+    }
+
+    if (settings.contains("vertexSize")) {
+        vertexSize = settings.value("vertexSize").toFloat();
+    } else {
+        vertexSize = 3.0f;
+    }
+
+    if (settings.contains("vertexColor")) {
+        vertexColor = settings.value("vertexColor").value<QColor>();
+    } else {
+        vertexColor = QColor(255, 255, 255);
+    }
+
+    if (settings.contains("edgeColor")) {
+        edgeColor = settings.value("edgeColor").value<QColor>();
+    } else {
+        edgeColor = QColor(255, 255, 255);
+    }
+
+    if (settings.contains("vertexDisplayMethod")) {
+        vertexDisplayMethod = static_cast<VertexDisplayMethod>(settings.value("vertexDisplayMethod").toInt());
+    } else {
+        vertexDisplayMethod = Circle;
+    }
 }
