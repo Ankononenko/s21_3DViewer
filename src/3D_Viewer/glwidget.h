@@ -32,6 +32,8 @@ public:
     void setCentralProjection();
     void setEdgeStyle(unsigned int style, float width);
     void setEdgeColor(const QColor& color);
+    void changeVertexSize(float increment);
+    void setVertexColor(const QColor& color);
 
 protected:
     void initializeGL() override;
@@ -40,10 +42,13 @@ protected:
 
 private:
     float scaleFactor;
+    float vertexSize;
     QColor backgroundColor;
     // Set up the projection matrix
     // QMatrix4x4 is a data type that represents a 4x4 matrix, used for transformations in 3D graphics
     QMatrix4x4 projectionMatrix;
+    QColor vertexColor;
+    QColor edgeColor;
 };
 
 #endif // GLWIDGET_H

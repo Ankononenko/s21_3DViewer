@@ -159,3 +159,25 @@ void MainWindow::on_edgesColorButton_clicked()
         glWidget->setEdgeColor(newColor);
     }
 }
+
+void MainWindow::on_verticesDecreaseSizeButton_clicked()
+{
+    glWidget->changeVertexSize(-1.0f);
+}
+
+void MainWindow::on_verticesIncreaseSizeButton_clicked()
+{
+    glWidget->changeVertexSize(1.0f);
+}
+
+void MainWindow::on_verticesColorButton_clicked()
+{
+    QColor initialColor = Qt::white;
+    QColor newColor = QColorDialog::getColor(initialColor, this, tr("Select Vertex Color"));
+
+    if (newColor.isValid()) {
+        glWidget->setVertexColor(newColor);
+    }
+}
+
+

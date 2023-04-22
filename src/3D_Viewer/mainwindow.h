@@ -51,6 +51,11 @@ private slots:
     void on_thickerButton_clicked();
     void on_edgesColorButton_clicked();
 
+    void on_verticesDecreaseSizeButton_clicked();
+    void on_verticesIncreaseSizeButton_clicked();
+
+    void on_verticesColorButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     GLWidget *glWidget;

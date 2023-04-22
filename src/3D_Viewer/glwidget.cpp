@@ -131,6 +131,12 @@ GLWidget::GLWidget(QWidget *parent)
     //    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/apple.obj");
     // The initial color
     backgroundColor = QColor(0, 0, 0);
+    // The initial point size
+    vertexSize = 3.0f;
+    // Set the initial vertex color to white
+    vertexColor = QColor(255, 255, 255);
+    // Set the initial edge color to white
+    edgeColor = QColor(255, 255, 255);
 }
 
 void GLWidget::initializeGL()
@@ -176,17 +182,19 @@ void GLWidget::paintGL()
     glMatrixMode(GL_MODELVIEW);
     glLoadMatrixf(modelView.constData());
 
-    // Change point size and line width
-    glPointSize(3.0f);
+    // Change point size
+    glPointSize(vertexSize);
 
     // Update the vertex and index pointers every time paintGL is called
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
 
     // Draw the points
+    glColor3f(vertexColor.redF(), vertexColor.greenF(), vertexColor.blueF());
     glDrawArrays(GL_POINTS, 0, n_vertices);
 
     // Draw the lines
+    glColor3f(edgeColor.redF(), edgeColor.greenF(), edgeColor.blueF());
     glDrawElements(GL_LINES, n_indices, GL_UNSIGNED_INT, cubeIndices);
 
     qDebug() << "PaintGL finished";
@@ -275,7 +283,19 @@ void GLWidget::setEdgeStyle(unsigned int style, float width)
 
 void GLWidget::setEdgeColor(const QColor& color)
 {
-    makeCurrent();
-    glColor3f(color.redF(), color.greenF(), color.blueF());
+    edgeColor = color;
+    update();
+}
+
+void GLWidget::changeVertexSize(float increment) {
+    vertexSize += increment;
+    if (vertexSize < 1.0f) {
+        vertexSize = 1.0f;
+    }
+    update();
+}
+
+void GLWidget::setVertexColor(const QColor &color) {
+    vertexColor = color;
     update();
 }
