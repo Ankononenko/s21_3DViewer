@@ -180,4 +180,15 @@ void MainWindow::on_verticesColorButton_clicked()
     }
 }
 
+void MainWindow::on_noneDisplayMethodButton_clicked() {
+    glWidget->setVertexDisplayMethod(GLWidget::None);
+}
+
+void MainWindow::on_squareDisplayMethodButton_clicked() {
+    glWidget->setVertexDisplayMethod(GLWidget::Square);
+}
+
+void MainWindow::on_circleDisplayMethodButton_clicked() {
+    glWidget->setVertexDisplayMethod(GLWidget::Circle);
+}
 

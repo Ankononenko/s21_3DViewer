@@ -151,6 +151,8 @@ void GLWidget::initializeGL()
     glLineWidth(1.0f);
     // Set the default edge color to white
     glColor3f(1.0f, 1.0f, 1.0f);
+    // Set the vertex display method
+    vertexDisplayMethod = Circle;
     qDebug() << "OpenGL initialized";
 }
 
@@ -191,7 +193,36 @@ void GLWidget::paintGL()
 
     // Draw the points
     glColor3f(vertexColor.redF(), vertexColor.greenF(), vertexColor.blueF());
-    glDrawArrays(GL_POINTS, 0, n_vertices);
+
+    if (vertexDisplayMethod == Circle) {
+            // Draw the vertices as circles
+            for (int i = 0; i < n_vertices * 3; i += 3) {
+                glBegin(GL_TRIANGLE_FAN);
+                float x = cubeVertices[i];
+                float y = cubeVertices[i + 1];
+                float z = cubeVertices[i + 2];
+                glVertex3f(x, y, z);
+                for (int angle = 0; angle <= 360; angle += 10) {
+                    float rad = M_PI * angle / 180.0f;
+                    glVertex3f(x + vertexSize * cos(rad) / width(), y + vertexSize * sin(rad) / height(), z);
+                }
+                glEnd();
+            }
+        } else if (vertexDisplayMethod == Square) {
+            // Draw the vertices as squares
+            for (int i = 0; i < n_vertices * 3; i += 3) {
+                glBegin(GL_QUADS);
+                float x = cubeVertices[i];
+                float y = cubeVertices[i + 1];
+                float z = cubeVertices[i + 2];
+                float halfSize = vertexSize / 2.0f;
+                glVertex3f(x - halfSize / width(), y - halfSize / height(), z);
+                glVertex3f(x + halfSize / width(), y - halfSize / height(), z);
+                glVertex3f(x + halfSize / width(), y + halfSize / height(), z);
+                glVertex3f(x - halfSize / width(), y + halfSize / height(), z);
+                glEnd();
+            }
+        }
 
     // Draw the lines
     glColor3f(edgeColor.redF(), edgeColor.greenF(), edgeColor.blueF());
@@ -297,5 +328,10 @@ void GLWidget::changeVertexSize(float increment) {
 
 void GLWidget::setVertexColor(const QColor &color) {
     vertexColor = color;
+    update();
+}
+
+void GLWidget::setVertexDisplayMethod(VertexDisplayMethod method) {
+    vertexDisplayMethod = method;
     update();
 }

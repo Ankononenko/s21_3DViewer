@@ -34,6 +34,12 @@ public:
     void setEdgeColor(const QColor& color);
     void changeVertexSize(float increment);
     void setVertexColor(const QColor& color);
+    enum VertexDisplayMethod {
+        None,
+        Circle,
+        Square
+    };
+    void setVertexDisplayMethod(VertexDisplayMethod method);
 
 protected:
     void initializeGL() override;
@@ -49,6 +55,7 @@ private:
     QMatrix4x4 projectionMatrix;
     QColor vertexColor;
     QColor edgeColor;
+    VertexDisplayMethod vertexDisplayMethod;
 };
 
 #endif // GLWIDGET_H

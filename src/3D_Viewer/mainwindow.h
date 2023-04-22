@@ -56,6 +56,12 @@ private slots:
 
     void on_verticesColorButton_clicked();
 
+    void on_noneDisplayMethodButton_clicked();
+
+    void on_squareDisplayMethodButton_clicked();
+
+    void on_circleDisplayMethodButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     GLWidget *glWidget;

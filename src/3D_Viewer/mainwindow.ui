@@ -447,7 +447,7 @@
      <item>
       <widget class="QLabel" name="edgesDisplayMethodLabel">
        <property name="text">
-        <string>Edges' display method</string>
+        <string>Verticies' display method</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
