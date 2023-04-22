@@ -25,7 +25,6 @@ private slots:
     void on_QuitButton_clicked();
     void on_loadModelFileButton_clicked();
     void on_changeBGColorButton_clicked();
-    void changeBackgroundColor(const QColor &color);
 
     void on_moveUpButton_clicked();
     void on_moveDownButton_clicked();
@@ -45,6 +44,12 @@ private slots:
 
     void on_parallelButton_clicked();
     void on_centralButton_clicked();
+
+    void on_solidButton_clicked();
+    void on_dashedButton_clicked();
+    void on_thinnerButton_clicked();
+    void on_thickerButton_clicked();
+    void on_edgesColorButton_clicked();
 
 private:
     Ui::MainWindow *ui;

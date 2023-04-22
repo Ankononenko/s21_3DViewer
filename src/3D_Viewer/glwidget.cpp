@@ -140,6 +140,11 @@ void GLWidget::initializeGL()
     glEnableClientState(GL_VERTEX_ARRAY);
     // Specify the format and the location of the vertex data in the array
     glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
+    // Enable line stipple for dashed lines
+    glEnable(GL_LINE_STIPPLE);
+    glLineWidth(1.0f);
+    // Set the default edge color to white
+    glColor3f(1.0f, 1.0f, 1.0f);
     qDebug() << "OpenGL initialized";
 }
 
@@ -173,7 +178,6 @@ void GLWidget::paintGL()
 
     // Change point size and line width
     glPointSize(3.0f);
-    glLineWidth(1.0f);
 
     // Update the vertex and index pointers every time paintGL is called
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -258,5 +262,20 @@ void GLWidget::setCentralProjection()
     // Forth value - distance from the viewer to the far clipping plane, which determines how far objects can be from the viewer before they are clipped
     // Clipping is necessary because the graphics pipeline can only render objects that are within a certain range of distances from the viewer, and any objects that fall outside of this range are clipped or removed from the scene before rendering.
     projectionMatrix.perspective(50.0, (double)width() / height(), 0.1, 100.0);
+    update();
+}
+
+void GLWidget::setEdgeStyle(unsigned int style, float width)
+{
+    makeCurrent();
+    glLineStipple(1, style);
+    glLineWidth(width);
+    update();
+}
+
+void GLWidget::setEdgeColor(const QColor& color)
+{
+    makeCurrent();
+    glColor3f(color.redF(), color.greenF(), color.blueF());
     update();
 }

@@ -46,14 +46,6 @@ void MainWindow::on_changeBGColorButton_clicked()
     }
 }
 
-void MainWindow::changeBackgroundColor(const QColor &color)
-{
-    if (glWidget) {
-        glWidget->setBackgroundColor(color);
-        glWidget->update();
-    }
-}
-
 void MainWindow::on_moveUpButton_clicked()
 {
     glWidget->moveModel(0, 0.1f, 0);
@@ -132,4 +124,38 @@ void MainWindow::on_parallelButton_clicked()
 void MainWindow::on_centralButton_clicked()
 {
     glWidget->setCentralProjection();
+}
+
+void MainWindow::on_solidButton_clicked()
+{
+    // 0x00FF is a hexadecimal representation of a 16-bit binary number.
+    // In this case, it represents the pattern 0000 0000 1111 1111 in binary,
+    // which is used for line stippling. When you use 0x00FF as the pattern,
+    // it alternates between one visible pixel and one hidden pixel, creating a dashed line effect.
+    glWidget->setEdgeStyle(0xFFFF, 1.0f);
+}
+
+void MainWindow::on_dashedButton_clicked()
+{
+    glWidget->setEdgeStyle(0x00FF, 1.0f);
+}
+
+void MainWindow::on_thinnerButton_clicked()
+{
+    glWidget->setEdgeStyle(0xFFFF, 0.5f);
+}
+
+void MainWindow::on_thickerButton_clicked()
+{
+    glWidget->setEdgeStyle(0xFFFF, 2.0f);
+}
+
+void MainWindow::on_edgesColorButton_clicked()
+{
+    QColor initialColor = Qt::white;
+    QColor newColor = QColorDialog::getColor(initialColor, this, tr("Select Edge Color"));
+
+    if (newColor.isValid()) {
+        glWidget->setEdgeColor(newColor);
+    }
 }
