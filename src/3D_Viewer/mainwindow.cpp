@@ -142,12 +142,12 @@ void MainWindow::on_dashedButton_clicked()
 
 void MainWindow::on_thinnerButton_clicked()
 {
-    glWidget->setEdgeStyle(0xFFFF, 0.5f);
+    glWidget->setEdgeStyle(0xFFFF, -0.5f);
 }
 
 void MainWindow::on_thickerButton_clicked()
 {
-    glWidget->setEdgeStyle(0xFFFF, 2.0f);
+    glWidget->setEdgeStyle(0xFFFF, 0.5f);
 }
 
 void MainWindow::on_edgesColorButton_clicked()

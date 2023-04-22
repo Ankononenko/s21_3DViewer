@@ -304,13 +304,20 @@ void GLWidget::setCentralProjection()
     update();
 }
 
-void GLWidget::setEdgeStyle(unsigned int style, float width)
+void GLWidget::setEdgeStyle(unsigned int style, float widthIncrement)
 {
     makeCurrent();
     glLineStipple(1, style);
-    glLineWidth(width);
+    float newWidth;
+    glGetFloatv(GL_LINE_WIDTH, &newWidth);
+    newWidth += widthIncrement;
+    if (newWidth < 1.0f) {
+        newWidth = 1.0f;
+    }
+    glLineWidth(newWidth);
     update();
 }
+
 
 void GLWidget::setEdgeColor(const QColor& color)
 {

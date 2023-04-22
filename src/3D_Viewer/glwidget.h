@@ -30,7 +30,7 @@ public:
     void rotateModel(float xAngle, float yAngle, float zAngle);
     void setParallelProjection();
     void setCentralProjection();
-    void setEdgeStyle(unsigned int style, float width);
+    void setEdgeStyle(unsigned int style, float widthIncrement);
     void setEdgeColor(const QColor& color);
     void changeVertexSize(float increment);
     void setVertexColor(const QColor& color);
