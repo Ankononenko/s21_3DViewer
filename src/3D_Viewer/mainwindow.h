@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QColorDialog>
 #include <QShortcut>
+#include <QSettings>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -53,13 +54,9 @@ private slots:
 
     void on_verticesDecreaseSizeButton_clicked();
     void on_verticesIncreaseSizeButton_clicked();
-
     void on_verticesColorButton_clicked();
-
     void on_noneDisplayMethodButton_clicked();
-
     void on_squareDisplayMethodButton_clicked();
-
     void on_circleDisplayMethodButton_clicked();
 
 private:

@@ -447,7 +447,7 @@
      <item>
       <widget class="QLabel" name="edgesDisplayMethodLabel">
        <property name="text">
-        <string>Verticies' display method</string>
+        <string>Vertices display method</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -502,7 +502,7 @@
      <item>
       <widget class="QLabel" name="verticesPreferencesLabel">
        <property name="text">
-        <string>Vertices' preferences</string>
+        <string>Vertices preferences</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
