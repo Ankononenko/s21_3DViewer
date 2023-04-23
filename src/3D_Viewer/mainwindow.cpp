@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     glWidget = this->findChild<GLWidget *>("openGLWidget");
+    if (glWidget) {
+        glWidget->filenameLabel = ui->filenameLabel;
+    }
     Q_ASSERT(glWidget); // Assert that the glWidget is not null
 }
 

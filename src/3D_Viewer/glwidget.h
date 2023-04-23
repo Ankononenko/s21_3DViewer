@@ -7,6 +7,8 @@
 #include <QMatrix4x4>
 #include <QOpenGLShaderProgram>
 #include <QSettings>
+#include <QLabel>
+#include <QFileInfo>
 
 // For max and min
 #include <cfloat>
@@ -24,14 +26,19 @@ public:
     // Destructor declaration for the frees of the arrays
     ~GLWidget();
     void loadModel(const QString& fileName);
+    QLabel* filenameLabel;
     QColor getBackgroundColor() const { return backgroundColor; }
     void setBackgroundColor(const QColor &color) { backgroundColor = color; }
     void scaleModel(float scaleFactor);
     void moveModel(float x, float y, float z);
     void rotateModel(float xAngle, float yAngle, float zAngle);
-    void setParallelProjection();
-    void setCentralProjection();
-    void setEdgeStyle(unsigned int style, float widthIncrement);
+//    void setParallelProjection();
+//    void setCentralProjection();
+//    void setEdgeStyle(unsigned int style, float widthIncrement);
+    void setParallelProjection(bool updateValue = true);
+    void setCentralProjection(bool updateValue = true);
+    void setEdgeStyle(unsigned int style, float widthIncrement, bool updateValue = true);
+
     void setEdgeColor(const QColor& color);
     void changeVertexSize(float increment);
     void setVertexColor(const QColor& color);
@@ -62,6 +69,9 @@ private:
     QColor vertexColor;
     QColor edgeColor;
     VertexDisplayMethod vertexDisplayMethod;
+
+private slots:
+    void postInitialization();
 };
 
 #endif // GLWIDGET_H

@@ -129,9 +129,9 @@ GLWidget::GLWidget(QWidget *parent)
 {
     // Make sure the widget has a valid OpenGL context
     setFormat(QSurfaceFormat::defaultFormat());
-
     parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
     //    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/apple.obj");
+
     // The initial color
     backgroundColor = QColor(0, 0, 0);
     // The initial point size
@@ -141,6 +141,7 @@ GLWidget::GLWidget(QWidget *parent)
     // Set the initial edge color to white
     edgeColor = QColor(255, 255, 255);
     loadSettings();
+    connect(this, &GLWidget::initializeGL, this, &GLWidget::postInitialization, Qt::QueuedConnection);
 }
 
 void GLWidget::initializeGL()
@@ -162,7 +163,8 @@ void GLWidget::initializeGL()
 
 void GLWidget::paintGL()
 {
-    glEnable(GL_DEPTH_TEST); // Enable depth testing
+    // Enable depth testing
+    glEnable(GL_DEPTH_TEST);
 
     // Set background color: RGB and opacity
     //    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -241,7 +243,11 @@ void GLWidget::resizeGL(int width, int height)
 
     // setToIdentity resets the projection matrix
     projectionMatrix.setToIdentity();
-    projectionMatrix.perspective(50.0, (double)width / height, 0.1, 100.0);
+    if (isParallelProjection) {
+       projectionMatrix.ortho(-1.0, 1.0, -1.0, 1.0, 0.1, 100.0);
+    } else {
+        projectionMatrix.perspective(50.0, (double)width / height, 0.1, 100.0);
+    }
     update();
 }
 
@@ -272,6 +278,12 @@ void GLWidget::loadModel(const QString& fileName)
         cubeIndices = NULL;
     }
 
+    // Display the filename in the QLabel
+    if (filenameLabel) {
+        QFileInfo fileInfo(fileName);
+        filenameLabel->setText(fileInfo.fileName());
+    }
+
     // Reset n_vertices and n_indices before parsing the new file
     n_vertices = 0;
     n_indices = 0;
@@ -283,7 +295,7 @@ void GLWidget::loadModel(const QString& fileName)
     update();
 }
 
-void GLWidget::setParallelProjection()
+void GLWidget::setParallelProjection(bool updateValue)
 {
     projectionMatrix.setToIdentity();
     // Define the orthogonal (parallel) projection matrix's clipping planes:
@@ -294,11 +306,13 @@ void GLWidget::setParallelProjection()
     //    0.1: near plane (closest distance to the camera where objects are still visible)
     //    100.0: far plane (farthest distance from the camera where objects are still visible)
     projectionMatrix.ortho(-1.0, 1.0, -1.0, 1.0, 0.1, 100.0);
-    isParallelProjection = true;
+    if (updateValue) {
+        isParallelProjection = true;
+    }
     update();
 }
 
-void GLWidget::setCentralProjection()
+void GLWidget::setCentralProjection(bool updateValue)
 {
     projectionMatrix.setToIdentity();
     // First value - field of view angle in degrees. Determines how much of the scene is visible
@@ -307,11 +321,13 @@ void GLWidget::setCentralProjection()
     // Forth value - distance from the viewer to the far clipping plane, which determines how far objects can be from the viewer before they are clipped
     // Clipping is necessary because the graphics pipeline can only render objects that are within a certain range of distances from the viewer, and any objects that fall outside of this range are clipped or removed from the scene before rendering.
     projectionMatrix.perspective(50.0, (double)width() / height(), 0.1, 100.0);
-    isParallelProjection = false;
+    if (updateValue) {
+        isParallelProjection = false;
+    }
     update();
 }
 
-void GLWidget::setEdgeStyle(unsigned int style, float widthIncrement)
+void GLWidget::setEdgeStyle(unsigned int style, float widthIncrement, bool updateValue)
 {
     makeCurrent();
     glLineStipple(1, style);
@@ -321,16 +337,17 @@ void GLWidget::setEdgeStyle(unsigned int style, float widthIncrement)
     if (newWidth < 1.0f) {
         newWidth = 1.0f;
     }
-    if (style == 0x00FF) {
-        isDashedEdges = true;
-    } else {
-        isDashedEdges = false;
+    if (updateValue) {
+        if (style == 0x00FF) {
+            isDashedEdges = true;
+        } else {
+            isDashedEdges = false;
+        }
+        edgeThickness += widthIncrement;
     }
-    edgeThickness += widthIncrement;
     glLineWidth(newWidth);
     update();
 }
-
 
 void GLWidget::setEdgeColor(const QColor& color)
 {
@@ -365,6 +382,9 @@ void GLWidget::saveSettings()
     settings.setValue("vertexColor", vertexColor);
     settings.setValue("edgeColor", edgeColor);
     settings.setValue("vertexDisplayMethod", vertexDisplayMethod);
+    settings.setValue("isParallelProjection", isParallelProjection);
+    settings.setValue("isDashedEdges", isDashedEdges);
+    settings.setValue("edgeThickness", edgeThickness);
 }
 
 void GLWidget::loadSettings() {
@@ -405,4 +425,42 @@ void GLWidget::loadSettings() {
     } else {
         vertexDisplayMethod = Circle;
     }
+    if (settings.contains("isParallelProjection")) {
+        isParallelProjection = settings.value("isParallelProjection").toBool();
+        qDebug() << "isParallelProjection set:" << isParallelProjection;
+    } else {
+        isParallelProjection = false;
+        qDebug() << "isParallelProjection not found, defaulting to" << isParallelProjection;
+    }
+
+    if (settings.contains("isDashedEdges")) {
+        isDashedEdges = settings.value("isDashedEdges").toBool();
+    } else {
+        isDashedEdges = false;
+    }
+
+    if (settings.contains("edgeThickness")) {
+        edgeThickness = settings.value("edgeThickness").toFloat();
+    } else {
+        edgeThickness = 1.0f;
+    }
+}
+
+void GLWidget::postInitialization()
+{
+    if (isParallelProjection) {
+        setParallelProjection(false);
+    } else {
+        setCentralProjection(false);
+    }
+
+    // Set edge style based on the loaded settings
+    if (isDashedEdges) {
+        setEdgeStyle(0x00FF, edgeThickness - 1.0f, false);
+        qDebug() << "setEdgeStyle 'dashed' defaulting to " << isParallelProjection;
+    } else {
+        setEdgeStyle(0xFFFF, edgeThickness - 1.0f, false);
+        qDebug() << "setEdgeStyle 'solid' defaulting to " << isParallelProjection;
+    }
+    setVertexDisplayMethod(vertexDisplayMethod);
 }
