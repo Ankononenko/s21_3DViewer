@@ -464,3 +464,7 @@ void GLWidget::postInitialization()
     }
     setVertexDisplayMethod(vertexDisplayMethod);
 }
+
+QImage GLWidget::takeScreenshot() {
+    return grabFramebuffer();
+}

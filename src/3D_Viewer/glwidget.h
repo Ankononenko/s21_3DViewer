@@ -27,6 +27,7 @@ public:
     ~GLWidget();
     void loadModel(const QString& fileName);
     QLabel* filenameLabel;
+    QImage takeScreenshot();
     QColor getBackgroundColor() const { return backgroundColor; }
     void setBackgroundColor(const QColor &color) { backgroundColor = color; }
     void scaleModel(float scaleFactor);

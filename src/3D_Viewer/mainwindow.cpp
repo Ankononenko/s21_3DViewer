@@ -203,3 +203,22 @@ void MainWindow::onModelLoaded(int numVertices, int numEdges) {
     numVerticesLabel->setText(QString("Vertices: %1").arg(numVertices));
     numEdgesLabel->setText(QString("Edges: %1").arg(numEdges));
 }
+
+void MainWindow::on_screenshotButton_clicked()
+{
+    QImage screenshot = glWidget->takeScreenshot();
+    QString fileFilter = "PNG Files (*.png);;JPEG Files (*.jpg *.jpeg);;BMP Files (*.bmp);;All Files (*)";
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Screenshot"), "", fileFilter);
+
+    if (!fileName.isEmpty()) {
+        QFileInfo fileInfo(fileName);
+        QString fileExtension = fileInfo.suffix().toLower();
+
+        if (fileExtension.isEmpty() || !(fileExtension == "png" || fileExtension == "jpg" || fileExtension == "jpeg" || fileExtension == "bmp")) {
+            fileName += ".png";
+        }
+
+        screenshot.save(fileName);
+    }
+}
+

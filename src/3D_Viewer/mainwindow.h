@@ -61,6 +61,8 @@ private slots:
 
     void onModelLoaded(int numVertices, int numEdges);
 
+    void on_screenshotButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     GLWidget *glWidget;
