@@ -51,6 +51,9 @@ public:
     void saveSettings();
     void loadSettings();
 
+signals:
+    void modelLoaded(int numVertices, int numEdges);
+
 protected:
     void initializeGL() override;
     void paintGL() override;

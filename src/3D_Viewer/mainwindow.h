@@ -59,8 +59,12 @@ private slots:
     void on_squareDisplayMethodButton_clicked();
     void on_circleDisplayMethodButton_clicked();
 
+    void onModelLoaded(int numVertices, int numEdges);
+
 private:
     Ui::MainWindow *ui;
     GLWidget *glWidget;
+    QLabel *numVerticesLabel;
+    QLabel *numEdgesLabel;
 };
 #endif // MAINWINDOW_H

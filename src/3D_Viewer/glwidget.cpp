@@ -131,7 +131,7 @@ GLWidget::GLWidget(QWidget *parent)
     setFormat(QSurfaceFormat::defaultFormat());
     parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
     //    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/apple.obj");
-
+    emit modelLoaded(n_vertices, n_indices / 2);
     // The initial color
     backgroundColor = QColor(0, 0, 0);
     // The initial point size
@@ -291,7 +291,7 @@ void GLWidget::loadModel(const QString& fileName)
     parseObjFile(filePath);
 
     qDebug() << "Finished parsing the OBJ file";
-
+    emit modelLoaded(n_vertices, n_indices / 2);
     update();
 }
 

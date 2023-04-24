@@ -11,7 +11,10 @@ MainWindow::MainWindow(QWidget *parent)
     if (glWidget) {
         glWidget->filenameLabel = ui->filenameLabel;
     }
+    connect(glWidget, &GLWidget::modelLoaded, this, &MainWindow::onModelLoaded);
     Q_ASSERT(glWidget); // Assert that the glWidget is not null
+    numVerticesLabel = ui->numVerticesLabel;
+    numEdgesLabel = ui->numEdgesLabel;
 }
 
 MainWindow::~MainWindow()
@@ -194,4 +197,9 @@ void MainWindow::on_squareDisplayMethodButton_clicked() {
 
 void MainWindow::on_circleDisplayMethodButton_clicked() {
     glWidget->setVertexDisplayMethod(GLWidget::Circle);
+}
+
+void MainWindow::onModelLoaded(int numVertices, int numEdges) {
+    numVerticesLabel->setText(QString("Vertices: %1").arg(numVertices));
+    numEdgesLabel->setText(QString("Edges: %1").arg(numEdges));
 }
