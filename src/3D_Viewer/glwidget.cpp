@@ -455,13 +455,9 @@ void GLWidget::postInitialization()
     }
 
     // Set edge style based on the loaded settings
-    if (isDashedEdges) {
-        setEdgeStyle(0x00FF, edgeThickness - 1.0f, false);
-        qDebug() << "setEdgeStyle 'dashed' defaulting to " << isParallelProjection;
-    } else {
-        setEdgeStyle(0xFFFF, edgeThickness - 1.0f, false);
-        qDebug() << "setEdgeStyle 'solid' defaulting to " << isParallelProjection;
-    }
+    unsigned int edgeStyle = isDashedEdges ? 0x00FF : 0xFFFF;
+    setEdgeStyle(edgeStyle, edgeThickness - 1.0f, false);
+
     setVertexDisplayMethod(vertexDisplayMethod);
 }
 

@@ -15,6 +15,11 @@ MainWindow::MainWindow(QWidget *parent)
     Q_ASSERT(glWidget); // Assert that the glWidget is not null
     numVerticesLabel = ui->numVerticesLabel;
     numEdgesLabel = ui->numEdgesLabel;
+    screencastTimer = new QTimer(this);
+    screencastMovie = nullptr;
+    screencastFrameCount = 0;
+    screencastWriter.setFormat("gif");
+    connect(screencastTimer, &QTimer::timeout, this, &MainWindow::captureScreencastFrame);
 }
 
 MainWindow::~MainWindow()
@@ -221,4 +226,73 @@ void MainWindow::on_screenshotButton_clicked()
         screenshot.save(fileName);
     }
 }
+// sudo apt install imagemagick
+void MainWindow::on_screencastButton_clicked()
+{
+    if (!screencastTimer->isActive()) {
+        // Start recording
+        screencastFrameCount = 0;
+        screencastFrames.clear();
+        screencastTimer->start(100); // Capture every 100 ms
+        ui->screencastButton->setText("Stop Recording");
+    } else {
+        // Stop recording
+        screencastTimer->stop();
 
+        // Save the frames as PNG images
+        QStringList imageFilenames;
+        for (int i = 0; i < screencastFrames.count(); ++i) {
+            const QImage &frame = screencastFrames.at(i);
+            QString fileName = QString("screencast_frame_%1.png").arg(i, 3, 10, QChar('0'));
+            if (!frame.save(fileName)) {
+                qDebug() << "Error saving frame:" << fileName;
+                break;
+            }
+            imageFilenames << fileName;
+        }
+
+        // Create a GIF from the saved PNG images
+        QString gifFilename = "screencast.gif";
+        createGifFromImages(gifFilename, imageFilenames, 10);
+
+        screencastFrames.clear();
+        ui->screencastButton->setText("Start Recording");
+    }
+}
+
+void MainWindow::captureScreencastFrame()
+{
+    QImage frame = glWidget->grabFramebuffer();
+    QImage scaledFrame = frame.scaled(640, 480, Qt::KeepAspectRatio);
+
+    screencastFrames.append(scaledFrame);
+    screencastFrameCount++;
+
+    if (screencastFrameCount >= 50) { // 5 seconds at 10 fps
+        on_screencastButton_clicked(); // Stop recording
+    }
+}
+
+void MainWindow::createGifFromImages(const QString &gifFilename, const QStringList &imageFilenames, int delay)
+{
+    if (imageFilenames.isEmpty()) {
+        qDebug() << "No images provided";
+        return;
+    }
+
+    QProcess process;
+    QStringList arguments;
+
+    arguments << "-delay" << QString::number(delay);
+    arguments << imageFilenames;
+    arguments << gifFilename;
+
+    process.start("convert", arguments);
+    process.waitForFinished(-1);
+
+    if (process.exitStatus() == QProcess::NormalExit) {
+        qDebug() << "GIF created:" << gifFilename;
+    } else {
+        qDebug() << "Failed to create GIF:" << process.errorString();
+    }
+}

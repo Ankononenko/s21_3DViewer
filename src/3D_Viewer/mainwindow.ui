@@ -578,11 +578,15 @@
      <item row="2" column="1">
       <widget class="QPushButton" name="screencastButton">
        <property name="text">
-        <string>Screencast</string>
+        <string>Start Recording</string>
        </property>
       </widget>
      </item>
     </layout>
+    <zorder>screencastButton</zorder>
+    <zorder>loadModelFileButton</zorder>
+    <zorder>changeBGColorButton</zorder>
+    <zorder>screenshotButton</zorder>
    </widget>
   </widget>
  </widget>
