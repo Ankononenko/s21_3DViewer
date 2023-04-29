@@ -157,7 +157,7 @@ void GLWidget::initializeGL()
     } else {
         glLineStipple(1, 0x00FF);
     }
-    glLineWidth(1.0f);
+    glLineWidth(edgeThickness);
     // Set the default edge color to white
     glColor3f(1.0f, 1.0f, 1.0f);
     // Set the vertex display method
@@ -170,6 +170,7 @@ void GLWidget::paintGL()
 
     qDebug() << "paintGL: isParallelProjection set to:" << isParallelProjection;
     qDebug() << "paintGL: isDashedEdges set to:" << isDashedEdges;
+    qDebug() << "paintGL: edgeThickness set to:" << edgeThickness;
 
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
@@ -402,6 +403,7 @@ void GLWidget::saveSettings()
     settings.setValue("isDashedEdges", isDashedEdges);
     qDebug() << "saveSettings: isDashedEdges set to:" << isDashedEdges;
     settings.setValue("edgeThickness", edgeThickness);
+    qDebug() << "saveSettings: edgeThickness set to:" << edgeThickness;
 }
 
 void GLWidget::loadSettings() {
@@ -460,8 +462,10 @@ void GLWidget::loadSettings() {
 
     if (settings.contains("edgeThickness")) {
         edgeThickness = settings.value("edgeThickness").toFloat();
+        qDebug() << "loadSettings: edgeThickness set to:" << edgeThickness;
     } else {
         edgeThickness = 1.0f;
+        qDebug() << "loadSettings: edgeThickness set to:" << edgeThickness;
     }
 }
 
