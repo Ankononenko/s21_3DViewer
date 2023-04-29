@@ -317,3 +317,9 @@ void MainWindow::createGifFromImages(const QString &gifFilename, const QStringLi
         qDebug() << "Failed to create GIF:" << process.errorString();
     }
 }
+
+void MainWindow::on_resetPreferencesButton_clicked()
+{
+    glWidget->resetPreferences();
+}
+

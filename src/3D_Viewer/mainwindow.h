@@ -69,6 +69,7 @@ private slots:
     void captureScreencastFrame();
     void createGifFromImages(const QString &gifFilename, const QStringList &imageFilenames, int delay);
 
+    void on_resetPreferencesButton_clicked();
 
 private:
     Ui::MainWindow *ui;

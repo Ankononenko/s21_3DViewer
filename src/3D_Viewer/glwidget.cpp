@@ -132,12 +132,12 @@ GLWidget::GLWidget(QWidget *parent)
     parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
     //    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/apple.obj");
     emit modelLoaded(n_vertices, n_indices / 2);
-    // The initial color
+    // The initial color to black
     backgroundColor = QColor(0, 0, 0);
     // The initial point size
-    vertexSize = 3.0f;
-    // Set the initial vertex color to white
-    vertexColor = QColor(255, 255, 255);
+    vertexSize = 20.0f;
+    // Set the initial vertex color to blue
+    vertexColor = QColor(0, 0, 255);
     // Set the initial edge color to white
     edgeColor = QColor(255, 255, 255);
     loadSettings();
@@ -343,28 +343,6 @@ void GLWidget::setCentralProjection(bool updateValue)
     update();
 }
 
-//void GLWidget::setEdgeStyle(unsigned int style, float widthIncrement, bool updateValue)
-//{
-//    makeCurrent();
-//    glLineStipple(1, style);
-//    float newWidth;
-//    glGetFloatv(GL_LINE_WIDTH, &newWidth);
-//    newWidth += widthIncrement;
-//    if (newWidth < 1.0f) {
-//        newWidth = 1.0f;
-//    }
-//    if (updateValue) {
-//        if (style == 0x00FF) {
-//            isDashedEdges = true;
-//        } else {
-//            isDashedEdges = false;
-//        }
-//        edgeThickness += widthIncrement;
-//    }
-//    glLineWidth(newWidth);
-//    update();
-//}
-
 void GLWidget::setEdgeLineStyle(unsigned int style, bool updateValue)
 {
     makeCurrent();
@@ -512,4 +490,26 @@ void GLWidget::postInitialization()
 
 QImage GLWidget::takeScreenshot() {
     return grabFramebuffer();
+}
+
+void GLWidget::resetPreferences()
+{
+    // The initial BG color to black
+    backgroundColor = QColor(0, 0, 0);
+    // Type of projection to central
+    setCentralProjection(true);
+    // Edges to solid
+    isDashedEdges = false;
+    // Edges thickness to 1.0
+    edgeThickness = 1.0f;
+    setEdgeWidth(0.0f);
+    // Set the edge color to white
+    edgeColor = QColor(255, 255, 255);
+    // Vertices display method to circles
+    setVertexDisplayMethod(GLWidget::Circle);
+    // The initial point size to 3.0f
+    vertexSize = 20.0f;
+    // Set the vertex color to blue
+    vertexColor = QColor(0, 0, 255);
+    update();
 }

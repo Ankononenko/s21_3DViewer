@@ -33,15 +33,10 @@ public:
     void scaleModel(float scaleFactor);
     void moveModel(float x, float y, float z);
     void rotateModel(float xAngle, float yAngle, float zAngle);
-//    void setParallelProjection();
-//    void setCentralProjection();
-//    void setEdgeStyle(unsigned int style, float widthIncrement);
     void setParallelProjection(bool updateValue = true);
     void setCentralProjection(bool updateValue = true);
-//    void setEdgeStyle(unsigned int style, float widthIncrement, bool updateValue = true);
     void setEdgeLineStyle(unsigned int style, bool updateValue);
     void setEdgeWidth(float widthIncrement);
-
     void setEdgeColor(const QColor& color);
     void changeVertexSize(float increment);
     void setVertexColor(const QColor& color);
@@ -53,6 +48,7 @@ public:
     void setVertexDisplayMethod(VertexDisplayMethod method);
     void saveSettings();
     void loadSettings();
+    void resetPreferences();
 
 signals:
     void modelLoaded(int numVertices, int numEdges);
