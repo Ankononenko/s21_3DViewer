@@ -9,10 +9,7 @@
 #include <QShortcut>
 #include <QSettings>
 // Includes for screen capture
-#include <QMovie>
-#include <QPixmap>
 #include <QTimer>
-#include <QImageWriter>
 #include <QProcess>
 
 QT_BEGIN_NAMESPACE
@@ -80,9 +77,7 @@ private:
     QLabel *numEdgesLabel;
     // Variables for screencast
     QTimer *screencastTimer;
-    QMovie *screencastMovie;
     int screencastFrameCount;
     QList<QImage> screencastFrames;
-    QImageWriter screencastWriter;
 };
 #endif // MAINWINDOW_H

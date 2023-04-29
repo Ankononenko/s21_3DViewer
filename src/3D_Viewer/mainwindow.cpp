@@ -16,9 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     numVerticesLabel = ui->numVerticesLabel;
     numEdgesLabel = ui->numEdgesLabel;
     screencastTimer = new QTimer(this);
-    screencastMovie = nullptr;
     screencastFrameCount = 0;
-    screencastWriter.setFormat("gif");
     connect(screencastTimer, &QTimer::timeout, this, &MainWindow::captureScreencastFrame);
 }
 
@@ -238,7 +236,6 @@ void MainWindow::on_screencastButton_clicked()
     } else {
         // Stop recording
         screencastTimer->stop();
-
         // Save the frames as PNG images
         QStringList imageFilenames;
         for (int i = 0; i < screencastFrames.count(); ++i) {
@@ -251,14 +248,34 @@ void MainWindow::on_screencastButton_clicked()
             imageFilenames << fileName;
         }
 
-        // Create a GIF from the saved PNG images
-        QString gifFilename = "screencast.gif";
-        createGifFromImages(gifFilename, imageFilenames, 10);
+        // Open the file picker for saving the GIF
+        QString fileFilter = "GIF Files (*.gif);;All Files (*)";
+        QString fileName = QFileDialog::getSaveFileName(this, tr("Save Screencast"), "", fileFilter);
 
+        if (!fileName.isEmpty()) {
+            QFileInfo fileInfo(fileName);
+            QString fileExtension = fileInfo.suffix().toLower();
+
+            if (fileExtension.isEmpty() || fileExtension != "gif") {
+                fileName += ".gif";
+            }
+
+            // Create a GIF from the saved PNG images
+            createGifFromImages(fileName, imageFilenames, 10);
+        }
         screencastFrames.clear();
         ui->screencastButton->setText("Start Recording");
+        // Delete the saved PNG images
+        for (const QString &filename : imageFilenames) {
+            if (QFile::remove(filename)) {
+                qDebug() << "Deleted image:" << filename;
+            } else {
+                qDebug() << "Failed to delete image:" << filename;
+            }
+        }
     }
 }
+
 
 void MainWindow::captureScreencastFrame()
 {

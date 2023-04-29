@@ -152,7 +152,11 @@ void GLWidget::initializeGL()
     // Specify the format and the location of the vertex data in the array
     glVertexPointer(3, GL_FLOAT, 0, cubeVertices);
     // Enable line stipple for dashed lines
-    glEnable(GL_LINE_STIPPLE);
+    if (!isDashedEdges) {
+        glLineStipple(1, 0xFFFF);
+    } else {
+        glLineStipple(1, 0x00FF);
+    }
     glLineWidth(1.0f);
     // Set the default edge color to white
     glColor3f(1.0f, 1.0f, 1.0f);
@@ -163,12 +167,23 @@ void GLWidget::initializeGL()
 
 void GLWidget::paintGL()
 {
+
+    qDebug() << "paintGL: isParallelProjection set to:" << isParallelProjection;
+    qDebug() << "paintGL: isDashedEdges set to:" << isDashedEdges;
+
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
 
     // Set background color: RGB and opacity
     //    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClearColor(backgroundColor.redF(), backgroundColor.greenF(), backgroundColor.blueF(), backgroundColor.alphaF());
+
+    // Enable line stipple for dashed lines
+     if (isDashedEdges) {
+         glEnable(GL_LINE_STIPPLE);
+     } else {
+         glDisable(GL_LINE_STIPPLE);
+     }
 
     // Clear the color buffer (color values of the pixels displayed on the screen)
     // and depth buffer (distance of each pixel)
@@ -383,7 +398,9 @@ void GLWidget::saveSettings()
     settings.setValue("edgeColor", edgeColor);
     settings.setValue("vertexDisplayMethod", vertexDisplayMethod);
     settings.setValue("isParallelProjection", isParallelProjection);
+    qDebug() << "saveSettings: isParallelProjection set to:" << isParallelProjection;
     settings.setValue("isDashedEdges", isDashedEdges);
+    qDebug() << "saveSettings: isDashedEdges set to:" << isDashedEdges;
     settings.setValue("edgeThickness", edgeThickness);
 }
 
@@ -427,16 +444,18 @@ void GLWidget::loadSettings() {
     }
     if (settings.contains("isParallelProjection")) {
         isParallelProjection = settings.value("isParallelProjection").toBool();
-        qDebug() << "isParallelProjection set:" << isParallelProjection;
+        qDebug() << "loadSettings: isParallelProjection set:" << isParallelProjection;
     } else {
         isParallelProjection = false;
-        qDebug() << "isParallelProjection not found, defaulting to" << isParallelProjection;
+        qDebug() << "loadSettings: isParallelProjection not found, defaulting to" << isParallelProjection;
     }
 
     if (settings.contains("isDashedEdges")) {
         isDashedEdges = settings.value("isDashedEdges").toBool();
+        qDebug() << "loadSettings: isDashedEdges set to:" << isDashedEdges;
     } else {
         isDashedEdges = false;
+        qDebug() << "loadSettings: isDashedEdges set to:" << isDashedEdges;
     }
 
     if (settings.contains("edgeThickness")) {
