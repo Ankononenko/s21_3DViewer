@@ -137,7 +137,7 @@ GLWidget::GLWidget(QWidget *parent)
     // The initial point size
     vertexSize = 20.0f;
     // Set the initial vertex color to blue
-    vertexColor = QColor(0, 0, 255);
+    vertexColor = QColor(0, 128, 255);
     // Set the initial edge color to white
     edgeColor = QColor(255, 255, 255);
     loadSettings();
@@ -160,8 +160,6 @@ void GLWidget::initializeGL()
     glLineWidth(edgeThickness);
     // Set the default edge color to white
     glColor3f(1.0f, 1.0f, 1.0f);
-    // Set the vertex display method
-    vertexDisplayMethod = Circle;
     qDebug() << "OpenGL initialized";
 }
 
@@ -171,6 +169,7 @@ void GLWidget::paintGL()
     qDebug() << "paintGL: isParallelProjection set to:" << isParallelProjection;
     qDebug() << "paintGL: isDashedEdges set to:" << isDashedEdges;
     qDebug() << "paintGL: edgeThickness set to:" << edgeThickness;
+    qDebug() << "paintGL: vertexDisplayMethod set to:" << vertexDisplayMethod;
 
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
@@ -401,6 +400,7 @@ void GLWidget::saveSettings()
     settings.setValue("vertexColor", vertexColor);
     settings.setValue("edgeColor", edgeColor);
     settings.setValue("vertexDisplayMethod", vertexDisplayMethod);
+    qDebug() << "saveSettings: vertexDisplayMethod set to:" << vertexDisplayMethod;
     settings.setValue("isParallelProjection", isParallelProjection);
     qDebug() << "saveSettings: isParallelProjection set to:" << isParallelProjection;
     settings.setValue("isDashedEdges", isDashedEdges);
@@ -444,8 +444,10 @@ void GLWidget::loadSettings() {
 
     if (settings.contains("vertexDisplayMethod")) {
         vertexDisplayMethod = static_cast<VertexDisplayMethod>(settings.value("vertexDisplayMethod").toInt());
+        qDebug() << "loadSettings: vertexDisplayMethod set to:" << vertexDisplayMethod;
     } else {
         vertexDisplayMethod = Circle;
+        qDebug() << "loadSettings: vertexDisplayMethod set to:" << vertexDisplayMethod;
     }
     if (settings.contains("isParallelProjection")) {
         isParallelProjection = settings.value("isParallelProjection").toBool();
@@ -510,6 +512,6 @@ void GLWidget::resetPreferences()
     // The initial point size to 3.0f
     vertexSize = 20.0f;
     // Set the vertex color to blue
-    vertexColor = QColor(0, 0, 255);
+    vertexColor = QColor(0, 128, 255);
     update();
 }
