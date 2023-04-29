@@ -141,22 +141,26 @@ void MainWindow::on_solidButton_clicked()
     // In this case, it represents the pattern 0000 0000 1111 1111 in binary,
     // which is used for line stippling. When you use 0x00FF as the pattern,
     // it alternates between one visible pixel and one hidden pixel, creating a dashed line effect.
-    glWidget->setEdgeStyle(0xFFFF, 1.0f);
+    //glWidget->setEdgeStyle(0xFFFF, 1.0f);
+    glWidget->setEdgeLineStyle(0xFFFF, 1);
 }
 
 void MainWindow::on_dashedButton_clicked()
 {
-    glWidget->setEdgeStyle(0x00FF, 1.0f);
+    //glWidget->setEdgeStyle(0x00FF, 1.0f);
+    glWidget->setEdgeLineStyle(0x00FF, 1);
 }
 
 void MainWindow::on_thinnerButton_clicked()
 {
-    glWidget->setEdgeStyle(0xFFFF, -0.5f);
+    //glWidget->setEdgeStyle(0xFFFF, -0.5f);
+    glWidget->setEdgeWidth(-0.5f);
 }
 
 void MainWindow::on_thickerButton_clicked()
 {
-    glWidget->setEdgeStyle(0xFFFF, 0.5f);
+    //glWidget->setEdgeStyle(0xFFFF, 0.5f);
+    glWidget->setEdgeWidth(0.5f);
 }
 
 

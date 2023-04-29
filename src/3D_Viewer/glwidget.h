@@ -38,7 +38,9 @@ public:
 //    void setEdgeStyle(unsigned int style, float widthIncrement);
     void setParallelProjection(bool updateValue = true);
     void setCentralProjection(bool updateValue = true);
-    void setEdgeStyle(unsigned int style, float widthIncrement, bool updateValue = true);
+//    void setEdgeStyle(unsigned int style, float widthIncrement, bool updateValue = true);
+    void setEdgeLineStyle(unsigned int style, bool updateValue);
+    void setEdgeWidth(float widthIncrement);
 
     void setEdgeColor(const QColor& color);
     void changeVertexSize(float increment);

@@ -343,25 +343,50 @@ void GLWidget::setCentralProjection(bool updateValue)
     update();
 }
 
-void GLWidget::setEdgeStyle(unsigned int style, float widthIncrement, bool updateValue)
+//void GLWidget::setEdgeStyle(unsigned int style, float widthIncrement, bool updateValue)
+//{
+//    makeCurrent();
+//    glLineStipple(1, style);
+//    float newWidth;
+//    glGetFloatv(GL_LINE_WIDTH, &newWidth);
+//    newWidth += widthIncrement;
+//    if (newWidth < 1.0f) {
+//        newWidth = 1.0f;
+//    }
+//    if (updateValue) {
+//        if (style == 0x00FF) {
+//            isDashedEdges = true;
+//        } else {
+//            isDashedEdges = false;
+//        }
+//        edgeThickness += widthIncrement;
+//    }
+//    glLineWidth(newWidth);
+//    update();
+//}
+
+void GLWidget::setEdgeLineStyle(unsigned int style, bool updateValue)
 {
     makeCurrent();
     glLineStipple(1, style);
-    float newWidth;
-    glGetFloatv(GL_LINE_WIDTH, &newWidth);
-    newWidth += widthIncrement;
-    if (newWidth < 1.0f) {
-        newWidth = 1.0f;
-    }
     if (updateValue) {
         if (style == 0x00FF) {
             isDashedEdges = true;
         } else {
             isDashedEdges = false;
         }
-        edgeThickness += widthIncrement;
     }
-    glLineWidth(newWidth);
+    update();
+}
+
+void GLWidget::setEdgeWidth(float widthIncrement)
+{
+    makeCurrent();
+    edgeThickness += widthIncrement;
+    if (edgeThickness < 1.0f) {
+        edgeThickness = 1.0f;
+    }
+    glLineWidth(edgeThickness);
     update();
 }
 
@@ -479,7 +504,8 @@ void GLWidget::postInitialization()
 
     // Set edge style based on the loaded settings
     unsigned int edgeStyle = isDashedEdges ? 0x00FF : 0xFFFF;
-    setEdgeStyle(edgeStyle, edgeThickness - 1.0f, false);
+    //setEdgeStyle(edgeStyle, edgeThickness - 1.0f, false);
+    setEdgeLineStyle(edgeStyle, false);
 
     setVertexDisplayMethod(vertexDisplayMethod);
 }
