@@ -130,7 +130,6 @@ GLWidget::GLWidget(QWidget *parent)
     // Make sure the widget has a valid OpenGL context
     setFormat(QSurfaceFormat::defaultFormat());
     parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
-    //    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/apple.obj");
     emit modelLoaded(n_vertices, n_indices / 2);
     // The initial color to black
     backgroundColor = QColor(0, 0, 0);
@@ -160,22 +159,13 @@ void GLWidget::initializeGL()
     glLineWidth(edgeThickness);
     // Set the default edge color to white
     glColor3f(1.0f, 1.0f, 1.0f);
-    qDebug() << "OpenGL initialized";
 }
 
 void GLWidget::paintGL()
 {
-
-    qDebug() << "paintGL: isParallelProjection set to:" << isParallelProjection;
-    qDebug() << "paintGL: isDashedEdges set to:" << isDashedEdges;
-    qDebug() << "paintGL: edgeThickness set to:" << edgeThickness;
-    qDebug() << "paintGL: vertexDisplayMethod set to:" << vertexDisplayMethod;
-
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
-
     // Set background color: RGB and opacity
-    //    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClearColor(backgroundColor.redF(), backgroundColor.greenF(), backgroundColor.blueF(), backgroundColor.alphaF());
 
     // Enable line stipple for dashed lines
@@ -248,8 +238,6 @@ void GLWidget::paintGL()
     // Draw the lines
     glColor3f(edgeColor.redF(), edgeColor.greenF(), edgeColor.blueF());
     glDrawElements(GL_LINES, n_indices, GL_UNSIGNED_INT, cubeIndices);
-
-    qDebug() << "PaintGL finished";
 }
 
 void GLWidget::resizeGL(int width, int height)
@@ -305,7 +293,6 @@ void GLWidget::loadModel(const QString& fileName)
 
     parseObjFile(filePath);
 
-    qDebug() << "Finished parsing the OBJ file";
     emit modelLoaded(n_vertices, n_indices / 2);
     update();
 }
@@ -400,13 +387,9 @@ void GLWidget::saveSettings()
     settings.setValue("vertexColor", vertexColor);
     settings.setValue("edgeColor", edgeColor);
     settings.setValue("vertexDisplayMethod", vertexDisplayMethod);
-    qDebug() << "saveSettings: vertexDisplayMethod set to:" << vertexDisplayMethod;
     settings.setValue("isParallelProjection", isParallelProjection);
-    qDebug() << "saveSettings: isParallelProjection set to:" << isParallelProjection;
     settings.setValue("isDashedEdges", isDashedEdges);
-    qDebug() << "saveSettings: isDashedEdges set to:" << isDashedEdges;
     settings.setValue("edgeThickness", edgeThickness);
-    qDebug() << "saveSettings: edgeThickness set to:" << edgeThickness;
 }
 
 void GLWidget::loadSettings() {
@@ -444,33 +427,25 @@ void GLWidget::loadSettings() {
 
     if (settings.contains("vertexDisplayMethod")) {
         vertexDisplayMethod = static_cast<VertexDisplayMethod>(settings.value("vertexDisplayMethod").toInt());
-        qDebug() << "loadSettings: vertexDisplayMethod set to:" << vertexDisplayMethod;
     } else {
         vertexDisplayMethod = Circle;
-        qDebug() << "loadSettings: vertexDisplayMethod set to:" << vertexDisplayMethod;
     }
     if (settings.contains("isParallelProjection")) {
         isParallelProjection = settings.value("isParallelProjection").toBool();
-        qDebug() << "loadSettings: isParallelProjection set:" << isParallelProjection;
     } else {
         isParallelProjection = false;
-        qDebug() << "loadSettings: isParallelProjection not found, defaulting to" << isParallelProjection;
     }
 
     if (settings.contains("isDashedEdges")) {
         isDashedEdges = settings.value("isDashedEdges").toBool();
-        qDebug() << "loadSettings: isDashedEdges set to:" << isDashedEdges;
     } else {
         isDashedEdges = false;
-        qDebug() << "loadSettings: isDashedEdges set to:" << isDashedEdges;
     }
 
     if (settings.contains("edgeThickness")) {
         edgeThickness = settings.value("edgeThickness").toFloat();
-        qDebug() << "loadSettings: edgeThickness set to:" << edgeThickness;
     } else {
         edgeThickness = 1.0f;
-        qDebug() << "loadSettings: edgeThickness set to:" << edgeThickness;
     }
 }
 
@@ -493,7 +468,13 @@ void GLWidget::postInitialization()
 QImage GLWidget::takeScreenshot() {
     return grabFramebuffer();
 }
-
+/*!
+ * \brief GLWidget::resetPreferences
+ * The functon is used when the "Reset model's preferences" button is clicked
+ * It sets BG color to black, edges to solid, thickness of the edges to 1.0f
+ * Color of the edges to white, vertices display type to circles, size of vertices to 20.0f and the color of verices to blue
+ * @param The function takes no parameters and updates the global ones.
+ */
 void GLWidget::resetPreferences()
 {
     // The initial BG color to black
@@ -504,12 +485,12 @@ void GLWidget::resetPreferences()
     isDashedEdges = false;
     // Edges thickness to 1.0
     edgeThickness = 1.0f;
-    setEdgeWidth(0.0f);
+    setEdgeWidth(1.0f);
     // Set the edge color to white
     edgeColor = QColor(255, 255, 255);
     // Vertices display method to circles
     setVertexDisplayMethod(GLWidget::Circle);
-    // The initial point size to 3.0f
+    // The initial point size to 20.0f
     vertexSize = 20.0f;
     // Set the vertex color to blue
     vertexColor = QColor(0, 128, 255);

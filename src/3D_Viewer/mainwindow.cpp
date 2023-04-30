@@ -364,3 +364,18 @@ void MainWindow::on_zRotateDoubleSpinBox_editingFinished()
     double value = ui->zRotateDoubleSpinBox->value();
     glWidget->rotateModel(0.0f, 0.0f, value);
 }
+
+/*! \mainpage 3D Viewer
+ *
+ * \section The documentation describes the components of the 3D Viewer applicaton.
+ *
+ * This is the introduction.
+ *
+ * \section Shortcuts:
+ * Q - Quit;
+ * R - Record screencast
+ *
+ * \subsection step1 Step 1: Opening the box
+ *
+ * etc...
+ */
