@@ -10,7 +10,19 @@
     <height>800</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="minimumSize">
+   <size>
+    <width>1200</width>
+    <height>800</height>
+   </size>
+  </property>
+  <property name="maximumSize">
    <size>
     <width>1200</width>
     <height>800</height>
@@ -29,9 +41,9 @@
    <widget class="GLWidget" name="openGLWidget" native="true">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>340</x>
       <y>20</y>
-      <width>871</width>
+      <width>841</width>
       <height>731</height>
      </rect>
     </property>
@@ -41,13 +53,19 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="maximumSize">
+     <size>
+      <width>871</width>
+      <height>731</height>
+     </size>
+    </property>
    </widget>
    <widget class="QPushButton" name="QuitButton">
     <property name="geometry">
      <rect>
       <x>20</x>
       <y>760</y>
-      <width>271</width>
+      <width>301</width>
       <height>25</height>
      </rect>
     </property>
@@ -63,7 +81,7 @@
      <rect>
       <x>20</x>
       <y>170</y>
-      <width>271</width>
+      <width>301</width>
       <height>121</height>
      </rect>
     </property>
@@ -74,16 +92,6 @@
      <property name="spacing">
       <number>6</number>
      </property>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="moveDownButton">
-       <property name="text">
-        <string>Down</string>
-       </property>
-       <property name="shortcut">
-        <string>2</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="moveForwardButton">
        <property name="text">
@@ -94,13 +102,13 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QPushButton" name="biggerButton">
+     <item row="2" column="1">
+      <widget class="QPushButton" name="moveBackwardButton">
        <property name="text">
-        <string>Bigger</string>
+        <string>Backward</string>
        </property>
        <property name="shortcut">
-        <string>+</string>
+        <string>9</string>
        </property>
       </widget>
      </item>
@@ -111,16 +119,6 @@
        </property>
        <property name="shortcut">
         <string>4</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QPushButton" name="smallerButton">
-       <property name="text">
-        <string>Smaller</string>
-       </property>
-       <property name="shortcut">
-        <string>-</string>
        </property>
       </widget>
      </item>
@@ -144,15 +142,47 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QPushButton" name="moveBackwardButton">
+     <item row="5" column="1">
+      <widget class="QPushButton" name="biggerButton">
        <property name="text">
-        <string>Backward</string>
+        <string>Bigger</string>
        </property>
        <property name="shortcut">
-        <string>9</string>
+        <string>+</string>
        </property>
       </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="moveDownButton">
+       <property name="text">
+        <string>Down</string>
+       </property>
+       <property name="shortcut">
+        <string>2</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QPushButton" name="smallerButton">
+       <property name="text">
+        <string>Smaller</string>
+       </property>
+       <property name="shortcut">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+     </item>
+     <item row="1" column="2">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+     </item>
+     <item row="2" column="2">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_3"/>
+     </item>
+     <item row="5" column="2">
+      <widget class="QSpinBox" name="spinBox"/>
      </item>
     </layout>
    </widget>
@@ -161,7 +191,7 @@
      <rect>
       <x>20</x>
       <y>140</y>
-      <width>271</width>
+      <width>301</width>
       <height>31</height>
      </rect>
     </property>
@@ -186,7 +216,7 @@
      <rect>
       <x>20</x>
       <y>290</y>
-      <width>271</width>
+      <width>301</width>
       <height>31</height>
      </rect>
     </property>
@@ -208,21 +238,11 @@
      <rect>
       <x>20</x>
       <y>320</y>
-      <width>271</width>
+      <width>301</width>
       <height>91</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="rotateModelGridLayout">
-     <item row="0" column="0">
-      <widget class="QPushButton" name="rotateUpButton">
-       <property name="text">
-        <string>Up</string>
-       </property>
-       <property name="shortcut">
-        <string>Ctrl+8</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="rotateDownButton">
        <property name="text">
@@ -233,6 +253,9 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="2">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_6"/>
+     </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="rotateLeftButton">
        <property name="text">
@@ -240,26 +263,6 @@
        </property>
        <property name="shortcut">
         <string>Ctrl+4</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="rotateRightButton">
-       <property name="text">
-        <string>Right</string>
-       </property>
-       <property name="shortcut">
-        <string>Ctrl+6</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="rotateClockwiseButton">
-       <property name="text">
-        <string>Clockwise</string>
-       </property>
-       <property name="shortcut">
-        <string>Ctrl+1</string>
        </property>
       </widget>
      </item>
@@ -273,14 +276,50 @@
        </property>
       </widget>
      </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="rotateClockwiseButton">
+       <property name="text">
+        <string>Clockwise</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="rotateUpButton">
+       <property name="text">
+        <string>Up</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+8</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_4"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="rotateRightButton">
+       <property name="text">
+        <string>Right</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+6</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QDoubleSpinBox" name="doubleSpinBox_5"/>
+     </item>
     </layout>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>310</x>
+      <x>340</x>
       <y>760</y>
-      <width>871</width>
+      <width>841</width>
       <height>23</height>
      </rect>
     </property>
@@ -325,7 +364,7 @@
      <rect>
       <x>20</x>
       <y>410</y>
-      <width>271</width>
+      <width>301</width>
       <height>31</height>
      </rect>
     </property>
@@ -347,8 +386,8 @@
      <rect>
       <x>20</x>
       <y>440</y>
-      <width>271</width>
-      <height>27</height>
+      <width>301</width>
+      <height>31</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="projectionTypeHorizontalLayout">
@@ -373,7 +412,7 @@
      <rect>
       <x>20</x>
       <y>470</y>
-      <width>271</width>
+      <width>301</width>
       <height>31</height>
      </rect>
     </property>
@@ -395,7 +434,7 @@
      <rect>
       <x>20</x>
       <y>500</y>
-      <width>271</width>
+      <width>301</width>
       <height>89</height>
      </rect>
     </property>
@@ -442,7 +481,7 @@
      <rect>
       <x>20</x>
       <y>590</y>
-      <width>271</width>
+      <width>301</width>
       <height>31</height>
      </rect>
     </property>
@@ -464,7 +503,7 @@
      <rect>
       <x>20</x>
       <y>620</y>
-      <width>271</width>
+      <width>301</width>
       <height>31</height>
      </rect>
     </property>
@@ -497,7 +536,7 @@
      <rect>
       <x>20</x>
       <y>650</y>
-      <width>271</width>
+      <width>301</width>
       <height>31</height>
      </rect>
     </property>
@@ -519,7 +558,7 @@
      <rect>
       <x>20</x>
       <y>680</y>
-      <width>271</width>
+      <width>301</width>
       <height>58</height>
      </rect>
     </property>
@@ -552,7 +591,7 @@
      <rect>
       <x>20</x>
       <y>20</y>
-      <width>271</width>
+      <width>301</width>
       <height>120</height>
      </rect>
     </property>
