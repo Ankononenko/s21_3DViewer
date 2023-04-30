@@ -140,7 +140,6 @@ GLWidget::GLWidget(QWidget *parent)
     // Set the initial edge color to white
     edgeColor = QColor(255, 255, 255);
     loadSettings();
-    connect(this, &GLWidget::initializeGL, this, &GLWidget::postInitialization, Qt::QueuedConnection);
 }
 
 void GLWidget::initializeGL()
@@ -459,7 +458,6 @@ void GLWidget::postInitialization()
 
     // Set edge style based on the loaded settings
     unsigned int edgeStyle = isDashedEdges ? 0x00FF : 0xFFFF;
-    //setEdgeStyle(edgeStyle, edgeThickness - 1.0f, false);
     setEdgeLineStyle(edgeStyle, false);
 
     setVertexDisplayMethod(vertexDisplayMethod);
