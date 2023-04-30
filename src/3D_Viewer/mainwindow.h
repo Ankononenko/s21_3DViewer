@@ -71,6 +71,14 @@ private slots:
 
     void on_resetPreferencesButton_clicked();
 
+    void on_yMoveDoubleSpinBox_editingFinished();
+    void on_xMoveDoubleSpinBox_editingFinished();
+    void on_zMoveDoubleSpinBox_editingFinished();
+    void on_sizeDoubleSpinBox_editingFinished();
+    void on_xRotateDoubleSpinBox_editingFinished();
+    void on_yRotateDoubleSpinBox_editingFinished();
+    void on_zRotateDoubleSpinBox_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     GLWidget *glWidget;

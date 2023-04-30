@@ -323,3 +323,44 @@ void MainWindow::on_resetPreferencesButton_clicked()
     glWidget->resetPreferences();
 }
 
+void MainWindow::on_yMoveDoubleSpinBox_editingFinished()
+{
+    double value = ui->yMoveDoubleSpinBox->value();
+    glWidget->moveModel(0, value, 0);
+}
+
+void MainWindow::on_xMoveDoubleSpinBox_editingFinished()
+{
+    double value = ui->xMoveDoubleSpinBox->value();
+    glWidget->moveModel(value, 0, 0);
+}
+
+void MainWindow::on_zMoveDoubleSpinBox_editingFinished()
+{
+    double value = ui->zMoveDoubleSpinBox->value();
+    glWidget->moveModel(0, 0, value);
+}
+
+void MainWindow::on_sizeDoubleSpinBox_editingFinished()
+{
+    double value = ui->sizeDoubleSpinBox->value();
+    glWidget->scaleModel(value);
+}
+
+void MainWindow::on_xRotateDoubleSpinBox_editingFinished()
+{
+   double value = ui->xRotateDoubleSpinBox->value();
+   glWidget->rotateModel(value, 0.0f, 0.0f);
+}
+
+void MainWindow::on_yRotateDoubleSpinBox_editingFinished()
+{
+    double value = ui->yRotateDoubleSpinBox->value();
+    glWidget->rotateModel(0.0f, value, 0.0f);
+}
+
+void MainWindow::on_zRotateDoubleSpinBox_editingFinished()
+{
+    double value = ui->zRotateDoubleSpinBox->value();
+    glWidget->rotateModel(0.0f, 0.0f, value);
+}

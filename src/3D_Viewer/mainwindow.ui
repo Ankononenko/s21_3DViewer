@@ -81,7 +81,7 @@
      <rect>
       <x>20</x>
       <y>170</y>
-      <width>301</width>
+      <width>221</width>
       <height>121</height>
      </rect>
     </property>
@@ -142,16 +142,6 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QPushButton" name="biggerButton">
-       <property name="text">
-        <string>Bigger</string>
-       </property>
-       <property name="shortcut">
-        <string>+</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QPushButton" name="moveDownButton">
        <property name="text">
@@ -172,17 +162,15 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
-     </item>
-     <item row="1" column="2">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
-     </item>
-     <item row="2" column="2">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_3"/>
-     </item>
-     <item row="5" column="2">
-      <widget class="QSpinBox" name="spinBox"/>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="biggerButton">
+       <property name="text">
+        <string>Bigger</string>
+       </property>
+       <property name="shortcut">
+        <string>+</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -238,7 +226,7 @@
      <rect>
       <x>20</x>
       <y>320</y>
-      <width>301</width>
+      <width>221</width>
       <height>91</height>
      </rect>
     </property>
@@ -253,16 +241,13 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_6"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="rotateLeftButton">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="rotateUpButton">
        <property name="text">
-        <string>Left</string>
+        <string>Up</string>
        </property>
        <property name="shortcut">
-        <string>Ctrl+4</string>
+        <string>Ctrl+8</string>
        </property>
       </widget>
      </item>
@@ -276,29 +261,6 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="rotateClockwiseButton">
-       <property name="text">
-        <string>Clockwise</string>
-       </property>
-       <property name="shortcut">
-        <string>Ctrl+1</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="rotateUpButton">
-       <property name="text">
-        <string>Up</string>
-       </property>
-       <property name="shortcut">
-        <string>Ctrl+8</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_4"/>
-     </item>
      <item row="1" column="1">
       <widget class="QPushButton" name="rotateRightButton">
        <property name="text">
@@ -309,8 +271,25 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_5"/>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="rotateLeftButton">
+       <property name="text">
+        <string>Left</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+4</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="rotateClockwiseButton">
+       <property name="text">
+        <string>Clockwise</string>
+       </property>
+       <property name="shortcut">
+        <string>Ctrl+1</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -643,6 +622,124 @@
     <zorder>changeBGColorButton</zorder>
     <zorder>screenshotButton</zorder>
     <zorder>resetPreferencesButton</zorder>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>252</x>
+      <y>170</y>
+      <width>71</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="moveModelVerticalLayout">
+     <item>
+      <widget class="QDoubleSpinBox" name="yMoveDoubleSpinBox">
+       <property name="minimum">
+        <double>-1.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="xMoveDoubleSpinBox">
+       <property name="minimum">
+        <double>-1.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="zMoveDoubleSpinBox">
+       <property name="minimum">
+        <double>-1.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="sizeDoubleSpinBox">
+       <property name="minimum">
+        <double>0.010000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>2.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>320</y>
+      <width>71</width>
+      <height>89</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="rotateModelVerticalLayout">
+     <item>
+      <widget class="QDoubleSpinBox" name="yRotateDoubleSpinBox">
+       <property name="decimals">
+        <number>0</number>
+       </property>
+       <property name="minimum">
+        <double>-360.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>360.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="xRotateDoubleSpinBox">
+       <property name="decimals">
+        <number>0</number>
+       </property>
+       <property name="minimum">
+        <double>-360.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>360.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDoubleSpinBox" name="zRotateDoubleSpinBox">
+       <property name="decimals">
+        <number>0</number>
+       </property>
+       <property name="minimum">
+        <double>-360.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>360.000000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>
