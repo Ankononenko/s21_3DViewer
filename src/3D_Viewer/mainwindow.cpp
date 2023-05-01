@@ -1,3 +1,24 @@
+/*! \mainpage 3D Viewer
+ *
+ * \section Documentation Documentation describes the components of the 3D Viewer applicaton
+ *
+ * Shortcuts: \n
+ * \b Q \b - Quit; \n
+ * \b R \b - Record screencast \n
+ * \b NUM 4 \b - Move model to the left \n
+ * \b NUM 6 \b - Move model to the right \n
+ * \b NUM 8 \b - Move model up \n
+ * \b NUM 2 \b - Move model down \n
+ * \b - \b - Scale model down \n
+ * \b + \b - Scale model up \n
+ * \b Ctrl + NUM 4 \b - Rotate model to the left \n
+ * \b Ctrl + NUM 6 \b - Rotate model to the right \n
+ * \b Ctrl + NUM 8 \b - Rotate model up \n
+ * \b Ctrl + NUM 2 \b - Rotate model down \n
+ * \b Ctrl + NUM 1 \b - Rotate model clockwise \n
+ * \b Ctrl + NUM 9 \b - Rotate model couterclowise \n
+ */
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "glwidget.h"
@@ -257,7 +278,7 @@ void MainWindow::on_screencastButton_clicked()
         QString fileName = QFileDialog::getSaveFileName(this, tr("Save Screencast"), "", fileFilter);
 
         if (!fileName.isEmpty()) {
-            QFileInfo fileInfo(fileName);
+            QFileInfo fileInfo( fileName);
             QString fileExtension = fileInfo.suffix().toLower();
 
             if (fileExtension.isEmpty() || fileExtension != "gif") {
@@ -364,18 +385,3 @@ void MainWindow::on_zRotateDoubleSpinBox_editingFinished()
     double value = ui->zRotateDoubleSpinBox->value();
     glWidget->rotateModel(0.0f, 0.0f, value);
 }
-
-/*! \mainpage 3D Viewer
- *
- * \section The documentation describes the components of the 3D Viewer applicaton.
- *
- * This is the introduction.
- *
- * \section Shortcuts:
- * Q - Quit;
- * R - Record screencast
- *
- * \subsection step1 Step 1: Opening the box
- *
- * etc...
- */
