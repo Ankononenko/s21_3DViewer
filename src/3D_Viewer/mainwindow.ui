@@ -610,6 +610,9 @@
     <layout class="QVBoxLayout" name="moveModelVerticalLayout">
      <item>
       <widget class="QDoubleSpinBox" name="yMoveDoubleSpinBox">
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -623,6 +626,9 @@
      </item>
      <item>
       <widget class="QDoubleSpinBox" name="xMoveDoubleSpinBox">
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -636,6 +642,9 @@
      </item>
      <item>
       <widget class="QDoubleSpinBox" name="zMoveDoubleSpinBox">
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
        <property name="minimum">
         <double>-1.000000000000000</double>
        </property>
@@ -649,6 +658,9 @@
      </item>
      <item>
       <widget class="QDoubleSpinBox" name="sizeDoubleSpinBox">
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
        <property name="minimum">
         <double>0.010000000000000</double>
        </property>
@@ -674,6 +686,9 @@
     <layout class="QVBoxLayout" name="rotateModelVerticalLayout">
      <item>
       <widget class="QDoubleSpinBox" name="yRotateDoubleSpinBox">
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
        <property name="decimals">
         <number>0</number>
        </property>
@@ -690,6 +705,9 @@
      </item>
      <item>
       <widget class="QDoubleSpinBox" name="xRotateDoubleSpinBox">
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
        <property name="decimals">
         <number>0</number>
        </property>
@@ -703,6 +721,9 @@
      </item>
      <item>
       <widget class="QDoubleSpinBox" name="zRotateDoubleSpinBox">
+       <property name="focusPolicy">
+        <enum>Qt::ClickFocus</enum>
+       </property>
        <property name="decimals">
         <number>0</number>
        </property>
@@ -744,7 +765,7 @@
       <height>31</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="moveLabeVerticalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <widget class="QLabel" name="moveLabel">
        <property name="frameShape">

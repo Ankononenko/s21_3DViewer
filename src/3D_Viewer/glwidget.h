@@ -28,7 +28,21 @@ public:
     void loadModel(const QString& fileName);
     QLabel* filenameLabel;
     QImage takeScreenshot();
+    /*!
+     * \brief GLWidget::getBackgroundColor
+     *
+     * Getter function that returns the current background color of the GLWidget.
+     *
+     * \return The current background color as a QColor object.
+     */
     QColor getBackgroundColor() const { return backgroundColor; }
+    /*!
+     * \brief GLWidget::setBackgroundColor
+     *
+     * Setter function that sets the background color of the GLWidget to the given QColor object.
+     *
+     * \param color The QColor object representing the new background color.
+     */
     void setBackgroundColor(const QColor &color) { backgroundColor = color; }
     void scaleModel(float scaleFactor);
     void moveModel(float x, float y, float z);
@@ -49,6 +63,10 @@ public:
     void saveSettings();
     void loadSettings();
     void resetPreferences();
+    int n_vertices;
+    int n_indices;
+    float* cubeVertices;
+    unsigned int* cubeIndices;
 
 signals:
     void modelLoaded(int numVertices, int numEdges);
@@ -71,9 +89,6 @@ private:
     QColor vertexColor;
     QColor edgeColor;
     VertexDisplayMethod vertexDisplayMethod;
-
-private slots:
-    void postInitialization();
 };
 
 #endif // GLWIDGET_H

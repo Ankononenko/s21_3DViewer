@@ -1,12 +1,19 @@
 #include "glwidget.h"
 
-int n_vertices = 0;
-int n_indices = 0;
+/*!
+* \brief parseObjFile
+* This function reads the input OBJ file, counts the number of vertices and indices, normalizes \n
+* the vertices, and stores the vertex and index data in global arrays.
+* \param filename
+* A const char pointer representing the path of the OBJ file to be parsed.
+*/
+void parseObjFile(const char *filename, GLWidget* glWidget) {
 
-float* cubeVertices = NULL;
-unsigned int* cubeIndices = NULL;
+    glWidget->n_vertices = 0;
+    glWidget->n_indices = 0;
+    glWidget->cubeVertices = NULL;
+    glWidget->cubeIndices = NULL;
 
-void parseObjFile(const char *filename) {
     int vertexIndex = 0;
     int faceIndex = 0;
 
@@ -24,7 +31,7 @@ void parseObjFile(const char *filename) {
 
     while (getline(&line, &len, file) != -1) {
         if (line[0] == 'v' && line[1] == ' ') {
-            n_vertices++;
+            glWidget->n_vertices++;
             float x, y, z;
             sscanf(line, "v %f %f %f", &x, &y, &z);
             min_x = fmin(min_x, x);
@@ -34,9 +41,9 @@ void parseObjFile(const char *filename) {
             max_y = fmax(max_y, y);
             max_z = fmax(max_z, z);
         } else if (line[0] == 'l' && line[1] == ' ') {
-            n_indices += 2;
+            glWidget->n_indices += 2;
         } else if (line[0] == 'f' && line[1] == ' ') {
-            n_indices += 6;
+            glWidget->n_indices += 6;
         }
     }
 
@@ -44,23 +51,23 @@ void parseObjFile(const char *filename) {
 
     float max_range = fmax(fmax(max_x - min_x, max_y - min_y), max_z - min_z);
 
-    cubeVertices = (float*)malloc(n_vertices * 3 * sizeof(float));
-    cubeIndices = (unsigned int*)malloc(n_indices * sizeof(unsigned int));
+    glWidget->cubeVertices = (float*)malloc(glWidget->n_vertices * 3 * sizeof(float));
+    glWidget->cubeIndices = (unsigned int*)malloc(glWidget->n_indices * sizeof(unsigned int));
 
     while (getline(&line, &len, file) != -1) {
         if (line[0] == 'v' && line[1] == ' ') {
             float x, y, z;
             sscanf(line, "v %f %f %f", &x, &y, &z);
-            cubeVertices[vertexIndex++] = (x - min_x) / max_range;
-            cubeVertices[vertexIndex++] = (y - min_y) / max_range;
-            cubeVertices[vertexIndex++] = (z - min_z) / max_range;
+            glWidget->cubeVertices[vertexIndex++] = (x - min_x) / max_range;
+            glWidget->cubeVertices[vertexIndex++] = (y - min_y) / max_range;
+            glWidget->cubeVertices[vertexIndex++] = (z - min_z) / max_range;
         }
         // Parse the line-style obj file
           else if (line[0] == 'l' && line[1] == ' ') {
             int indices[2];
             sscanf(line, "l %d %d", &indices[0], &indices[1]);
-            cubeIndices[faceIndex++] = indices[0] - 1;
-            cubeIndices[faceIndex++] = indices[1] - 1;
+            glWidget->cubeIndices[faceIndex++] = indices[0] - 1;
+            glWidget->cubeIndices[faceIndex++] = indices[1] - 1;
         }
         // Parse the perfect face-style obj file
           else if (line[0] == 'f' && line[1] == ' ') {
@@ -75,12 +82,12 @@ void parseObjFile(const char *filename) {
                 --indices[i];
             }
             // Triangulate and convert to line segments
-            cubeIndices[faceIndex++] = indices[0];
-            cubeIndices[faceIndex++] = indices[1];
-            cubeIndices[faceIndex++] = indices[1];
-            cubeIndices[faceIndex++] = indices[2];
-            cubeIndices[faceIndex++] = indices[2];
-            cubeIndices[faceIndex++] = indices[0];
+            glWidget->cubeIndices[faceIndex++] = indices[0];
+            glWidget->cubeIndices[faceIndex++] = indices[1];
+            glWidget->cubeIndices[faceIndex++] = indices[1];
+            glWidget->cubeIndices[faceIndex++] = indices[2];
+            glWidget->cubeIndices[faceIndex++] = indices[2];
+            glWidget->cubeIndices[faceIndex++] = indices[0];
         }
     }
     fclose(file);
@@ -88,7 +95,12 @@ void parseObjFile(const char *filename) {
         free(line);
     }
 }
-
+/*!
+ * \brief GLWidget::scaleModel
+ * This function scales the model by the given scaleFactor.
+ * \param scaleFactor
+ * A float value representing the scale factor to apply to the model.
+*/
 void GLWidget::scaleModel(float scaleFactor)
 {
     for (int i = 0; i < n_vertices * 3; i++) {
@@ -96,7 +108,16 @@ void GLWidget::scaleModel(float scaleFactor)
     }
     update();
 }
-
+/*!
+ * \brief GLWidget::moveModel
+ *
+ * Translates the model by the given x, y, and z offsets. \n
+ * This function updates the vertex positions in cubeVertices and calls update() to trigger a repaint of the widget. \n
+ *
+ * \param x The x-axis offset.
+ * \param y The y-axis offset.
+ * \param z The z-axis offset.
+ */
 void GLWidget::moveModel(float x, float y, float z)
 {
     for (int i = 0; i < n_vertices * 3; i += 3) {
@@ -106,7 +127,16 @@ void GLWidget::moveModel(float x, float y, float z)
     }
     update();
 }
-
+/*!
+ * \brief GLWidget::rotateModel
+ *
+ * Rotates the model by the given x, y, and z angles in degrees. This function updates the vertex positions in cubeVertices
+ * using a rotation matrix and calls update() to trigger a repaint of the widget.
+ *
+ * \param xAngle The rotation angle in degrees around the x-axis.
+ * \param yAngle The rotation angle in degrees around the y-axis.
+ * \param zAngle The rotation angle in degrees around the z-axis.
+ */
 void GLWidget::rotateModel(float xAngle, float yAngle, float zAngle)
 {
     QMatrix4x4 rotationMatrix;
@@ -123,13 +153,26 @@ void GLWidget::rotateModel(float xAngle, float yAngle, float zAngle)
     }
     update();
 }
+/*!
+ * \brief GLWidget::GLWidget
+ *
+ * Constructor for the GLWidget class. Initializes the OpenGL widget, parses the input OBJ file,
+ * and emits a modelLoaded signal. It also initializes the initial colors, point size, and
+ * loads the settings.
+ *
+ * \param parent The parent QWidget for this GLWidget.
+ */
 
 GLWidget::GLWidget(QWidget *parent)
-    : QOpenGLWidget(parent)
+    : QOpenGLWidget(parent),
+      n_vertices(0),
+      n_indices(0),
+      cubeVertices(nullptr),
+      cubeIndices(nullptr)
 {
     // Make sure the widget has a valid OpenGL context
     setFormat(QSurfaceFormat::defaultFormat());
-    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/cube_first.obj");
+    parseObjFile("/home/finchren/school/s21_3DViewer/s21_3DViewer/src/3D_Viewer/models/cube_first.obj", this);
     emit modelLoaded(n_vertices, n_indices / 2);
     // The initial color to black
     backgroundColor = QColor(0, 0, 0);
@@ -141,7 +184,12 @@ GLWidget::GLWidget(QWidget *parent)
     edgeColor = QColor(255, 255, 255);
     loadSettings();
 }
-
+/*!
+ * \brief GLWidget::initializeGL
+ *
+ * Initializes OpenGL functions, enables vertex arrays for drawing, specifies the vertex data format
+ * and location in the array, sets line stipple for dashed lines, and sets the initial edge color.
+ */
 void GLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
@@ -159,7 +207,13 @@ void GLWidget::initializeGL()
     // Set the default edge color to white
     glColor3f(1.0f, 1.0f, 1.0f);
 }
-
+/*!
+ * \brief GLWidget::paintGL
+ *
+ * Renders the 3D model by drawing vertices and edges with the specified colors and styles.
+ * It also sets up the projection and model-view matrices, updates the vertex and index pointers,
+ * and enables/disables line stipple based on the isDashedEdges flag.
+ */
 void GLWidget::paintGL()
 {
     // Enable depth testing
@@ -238,7 +292,14 @@ void GLWidget::paintGL()
     glColor3f(edgeColor.redF(), edgeColor.greenF(), edgeColor.blueF());
     glDrawElements(GL_LINES, n_indices, GL_UNSIGNED_INT, cubeIndices);
 }
-
+/*!
+ * \brief GLWidget::resizeGL
+ *
+ * Updates the viewport, projection matrix, and calls update() when the widget is resized.
+ *
+ * \param width The new width of the widget.
+ * \param height The new height of the widget.
+ */
 void GLWidget::resizeGL(int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -252,9 +313,13 @@ void GLWidget::resizeGL(int width, int height)
     }
     update();
 }
-
-
-// Destructor class
+/*!
+ * \brief GLWidget::~GLWidget
+ *
+ * Destructor class \n
+ * Saves the display settings of edges, vertices and BG color. \n
+ * After the settings are saved, frees the arrays of vertices and indicies
+ */
 GLWidget::~GLWidget()
 {
     saveSettings();
@@ -265,7 +330,13 @@ GLWidget::~GLWidget()
         free(cubeIndices);
     }
 }
-
+/*!
+ * \brief GLWidget::loadModel
+ *
+ * The function is used to open the file picker, so u user can choose an obj file to be loaded.
+ * \param fileName
+ * QFileDialog::getOpenFileName is used to get the filename of QString type and pass it to this function.
+ */
 void GLWidget::loadModel(const QString& fileName)
 {
     QByteArray byteArray = fileName.toLocal8Bit();
@@ -290,12 +361,19 @@ void GLWidget::loadModel(const QString& fileName)
     n_vertices = 0;
     n_indices = 0;
 
-    parseObjFile(filePath);
+    parseObjFile(filePath, this);
 
     emit modelLoaded(n_vertices, n_indices / 2);
     update();
 }
-
+/*!
+ * \brief GLWidget::setParallelProjection
+ *
+ * The function is used to change the type of the projection for the model.
+ * \param updateValue
+ * Parameter is used to change the value of isParallelProjection boolean variable.\n
+ * That variable is saved in case the user closes the app and is loaded when the app starts again.
+ */
 void GLWidget::setParallelProjection(bool updateValue)
 {
     projectionMatrix.setToIdentity();
@@ -312,7 +390,14 @@ void GLWidget::setParallelProjection(bool updateValue)
     }
     update();
 }
-
+/*!
+ * \brief GLWidget::setCentralProjection
+ *
+ * The function is used to change the type of the projection for the model.
+ * \param updateValue
+ * Parameter is used to change the value of isParallelProjection boolean variable.\n
+ * That variable is saved in case the user closes the app and is loaded when the app starts again.
+ */
 void GLWidget::setCentralProjection(bool updateValue)
 {
     projectionMatrix.setToIdentity();
@@ -327,7 +412,20 @@ void GLWidget::setCentralProjection(bool updateValue)
     }
     update();
 }
-
+/*!
+ * \brief GLWidget::setEdgeLineStyle
+ *
+ * The functio is used to set the style of edges.\n
+ * By default the style is set to solid
+ * \param style
+ * Should take 0x00FF (dashed) or 0xFFFF (solid).\n
+ *  0x00FF is a hexadecimal representation of a 16-bit binary number.\n
+ *  In this case, it represents the pattern 0000 0000 1111 1111 in binary,\n
+ *  which is used for line stippling. When you use 0x00FF as the pattern,\n
+ *  it alternates between one visible pixel and one hidden pixel, creating a dashed line effect.
+ * \param updateValue
+ * Is used to decide if we want to update the the boolean value of isDashedEdges, which is stored in case the user closes the app
+ */
 void GLWidget::setEdgeLineStyle(unsigned int style, bool updateValue)
 {
     makeCurrent();
@@ -341,7 +439,14 @@ void GLWidget::setEdgeLineStyle(unsigned int style, bool updateValue)
     }
     update();
 }
-
+/*!
+ * \brief GLWidget::setEdgeWidth
+ *
+ * The function is used to update the width of the edges.
+ * \param widthIncrement
+ * It takes widthIncrement argument of float type, which increments edgeThickness value. \n
+ * The value cannot become less than 1.0. It is reset back to 1.0 if it becomes less.
+ */
 void GLWidget::setEdgeWidth(float widthIncrement)
 {
     makeCurrent();
@@ -352,13 +457,25 @@ void GLWidget::setEdgeWidth(float widthIncrement)
     glLineWidth(edgeThickness);
     update();
 }
-
+/*!
+ * \brief GLWidget::setEdgeColor
+ *
+ * The function is used to update the color of the edges.
+ * \param color
+ * QColorDialog::getColor is used to get the color of QColor type and pass it to the function.
+ */
 void GLWidget::setEdgeColor(const QColor& color)
 {
     edgeColor = color;
     update();
 }
-
+/*!
+ * \brief GLWidget::changeVertexSize
+ *
+ * The function is used to change the vertex size by passing a certain argument that is going tobe used to update the vertexSize variable.
+ * \param increment The parameter is of float type. Value is incremented from the initial value. The vertexSize cannot become less than 1.0f.\n
+ * It resets to 1.0 when becomes less than 1.0f
+ */
 void GLWidget::changeVertexSize(float increment) {
     vertexSize += increment;
     if (vertexSize < 1.0f) {
@@ -366,17 +483,33 @@ void GLWidget::changeVertexSize(float increment) {
     }
     update();
 }
-
+/*!
+ * \brief GLWidget::setVertexColor
+ *
+ * The function is used to change the default color of the vertices.
+ * \param color The function takes the parameter color of QColor type. \n
+ * In the click on button even QColorDialog::getColor is used to get the new color.
+ */
 void GLWidget::setVertexColor(const QColor &color) {
     vertexColor = color;
     update();
 }
-
+/*!
+ * \brief GLWidget::setVertexDisplayMethod
+ *
+ * The functon is used to change the vertex display method between 3 enum values - None, Circle and Square
+ * \param method Takes one of the 3 enum values - None, Circle and Square that is going to use to update the view of the model.
+ */
 void GLWidget::setVertexDisplayMethod(VertexDisplayMethod method) {
     vertexDisplayMethod = method;
     update();
 }
-
+/*!
+ * \brief GLWidget::saveSettings
+ *
+ * The function is used to save the settings of the vertex preferences and settings of the edges \n
+ * As well as the background that the user has chosen using QSettings.
+ */
 void GLWidget::saveSettings()
 {
     QSettings settings("finchren", "3D_Viewer");
@@ -390,7 +523,13 @@ void GLWidget::saveSettings()
     settings.setValue("isDashedEdges", isDashedEdges);
     settings.setValue("edgeThickness", edgeThickness);
 }
-
+/*!
+ * \brief GLWidget::loadSettings
+ *
+ * The function is used to load the settings of the vertex preferences and settings of the edges \n
+ * As well as the background that the user has chosen using QSettings. If no value was found a default one is used.
+ * @params The function uses the global values and takes no arguments as it's parameters.
+ */
 void GLWidget::loadSettings() {
     QSettings settings("finchren", "3D_Viewer");
 
@@ -447,29 +586,19 @@ void GLWidget::loadSettings() {
         edgeThickness = 1.0f;
     }
 }
-
-void GLWidget::postInitialization()
-{
-    if (isParallelProjection) {
-        setParallelProjection(false);
-    } else {
-        setCentralProjection(false);
-    }
-
-    // Set edge style based on the loaded settings
-    unsigned int edgeStyle = isDashedEdges ? 0x00FF : 0xFFFF;
-    setEdgeLineStyle(edgeStyle, false);
-
-    setVertexDisplayMethod(vertexDisplayMethod);
-}
-
+/*!
+ * \brief GLWidget::takeScreenshot
+ *
+ * \return Returns grabFramebuffer which renders and returns a 32-bit RGB image of the framebuffer.
+ */
 QImage GLWidget::takeScreenshot() {
     return grabFramebuffer();
 }
 /*!
  * \brief GLWidget::resetPreferences
- * The functon is used when the "Reset model's preferences" button is clicked
- * It sets BG color to black, edges to solid, thickness of the edges to 1.0f
+ *
+ * The functon is used when the "Reset model's preferences" button is clicked \n
+ * It sets BG color to black, edges to solid, thickness of the edges to 1.0f \n
  * Color of the edges to white, vertices display type to circles, size of vertices to 20.0f and the color of verices to blue
  * @param The function takes no parameters and updates the global ones.
  */

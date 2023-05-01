@@ -25,7 +25,6 @@ public:
     ~MainWindow();
 
 private slots:
-
     void on_QuitButton_clicked();
     void on_loadModelFileButton_clicked();
     void on_changeBGColorButton_clicked();

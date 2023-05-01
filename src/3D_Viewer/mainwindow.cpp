@@ -22,7 +22,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "glwidget.h"
-
+/*!
+ * \brief MainWindow::MainWindow
+ *
+ * Constructor for the MainWindow class. Sets up the user interface and initializes the necessary connections and widgets.
+ *
+ * \param parent The parent widget for this MainWindow.
+ */
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -33,24 +39,34 @@ MainWindow::MainWindow(QWidget *parent)
         glWidget->filenameLabel = ui->filenameLabel;
     }
     connect(glWidget, &GLWidget::modelLoaded, this, &MainWindow::onModelLoaded);
-    Q_ASSERT(glWidget); // Assert that the glWidget is not null
     numVerticesLabel = ui->numVerticesLabel;
     numEdgesLabel = ui->numEdgesLabel;
     screencastTimer = new QTimer(this);
     screencastFrameCount = 0;
     connect(screencastTimer, &QTimer::timeout, this, &MainWindow::captureScreencastFrame);
 }
-
+/*!
+ * \brief MainWindow::~MainWindow
+ *
+ * Destructor for the MainWindow class. Cleans up the user interface.
+ */
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
+/*!
+ * \brief MainWindow::on_QuitButton_clicked
+ * Function closes the applicaton
+ */
 void MainWindow::on_QuitButton_clicked()
 {
     close();
 }
-
+/*!
+ * \brief MainWindow::on_loadModelFileButton_clicked
+ * Function is used to load the file using the QFileDialog to open the file dialog.
+ * All .obj files are displayed. Absolute path is loaded.
+ */
 void MainWindow::on_loadModelFileButton_clicked()
 {
     QString fileFilter = "OBJ Files (*.obj);;All Files (*)";
@@ -64,7 +80,11 @@ void MainWindow::on_loadModelFileButton_clicked()
         glWidget->loadModel(absoluteFilePath);
     }
 }
-
+/*!
+ * \brief MainWindow::on_changeBGColorButton_clicked
+ * Function is used to change the default BG color. QColorDialog is used to update.
+ * Updates the initialColor
+ */
 void MainWindow::on_changeBGColorButton_clicked()
 {
     QColor initialColor = glWidget->getBackgroundColor();
@@ -75,7 +95,10 @@ void MainWindow::on_changeBGColorButton_clicked()
         glWidget->update();
     }
 }
-
+/*!
+ * \brief MainWindow::on_moveUpButton_clicked
+ * Moves up the model. Uses moveModel function of glWidget
+ */
 void MainWindow::on_moveUpButton_clicked()
 {
     glWidget->moveModel(0, 0.1f, 0);
@@ -162,25 +185,21 @@ void MainWindow::on_solidButton_clicked()
     // In this case, it represents the pattern 0000 0000 1111 1111 in binary,
     // which is used for line stippling. When you use 0x00FF as the pattern,
     // it alternates between one visible pixel and one hidden pixel, creating a dashed line effect.
-    //glWidget->setEdgeStyle(0xFFFF, 1.0f);
     glWidget->setEdgeLineStyle(0xFFFF, 1);
 }
 
 void MainWindow::on_dashedButton_clicked()
 {
-    //glWidget->setEdgeStyle(0x00FF, 1.0f);
     glWidget->setEdgeLineStyle(0x00FF, 1);
 }
 
 void MainWindow::on_thinnerButton_clicked()
 {
-    //glWidget->setEdgeStyle(0xFFFF, -0.5f);
     glWidget->setEdgeWidth(-0.5f);
 }
 
 void MainWindow::on_thickerButton_clicked()
 {
-    //glWidget->setEdgeStyle(0xFFFF, 0.5f);
     glWidget->setEdgeWidth(0.5f);
 }
 
@@ -249,6 +268,12 @@ void MainWindow::on_screenshotButton_clicked()
         screenshot.save(fileName);
     }
 }
+/*!
+ * \brief MainWindow::on_screencastButton_clicked
+ *
+ * Starts or stops the screencast recording. When the recording is stopped, it saves the frames as PNG images,
+ * creates a GIF from the images, and deletes the saved PNG images.
+ */
 // sudo apt install imagemagick
 void MainWindow::on_screencastButton_clicked()
 {
@@ -292,16 +317,16 @@ void MainWindow::on_screencastButton_clicked()
         ui->screencastButton->setText("Start Recording");
         // Delete the saved PNG images
         for (const QString &filename : imageFilenames) {
-            if (QFile::remove(filename)) {
-                qDebug() << "Deleted image:" << filename;
-            } else {
-                qDebug() << "Failed to delete image:" << filename;
-            }
+            QFile::remove(filename);
         }
     }
 }
-
-
+/*!
+ * \brief MainWindow::captureScreencastFrame
+ *
+ * Captures a frame from the GLWidget, resizes it, and appends it to the screencastFrames list.
+ * Stops the recording if the screencast frame count reaches 50 (5 seconds at 10 fps).
+ */
 void MainWindow::captureScreencastFrame()
 {
     QImage frame = glWidget->grabFramebuffer();
@@ -309,12 +334,21 @@ void MainWindow::captureScreencastFrame()
 
     screencastFrames.append(scaledFrame);
     screencastFrameCount++;
-
-    if (screencastFrameCount >= 50) { // 5 seconds at 10 fps
-        on_screencastButton_clicked(); // Stop recording
+    // 5 seconds at 10 fps
+    if (screencastFrameCount >= 50) {
+        // Stop recording
+        on_screencastButton_clicked();
     }
 }
-
+/*!
+ * \brief MainWindow::createGifFromImages
+ *
+ * Creates a GIF from the provided list of image filenames using the 'convert' command. The delay parameter determines the time between frames in the GIF.
+ *
+ * \param gifFilename The filename of the output GIF file.
+ * \param imageFilenames A list of filenames of the images to be included in the GIF.
+ * \param delay The delay between frames in the GIF, in milliseconds.
+ */
 void MainWindow::createGifFromImages(const QString &gifFilename, const QStringList &imageFilenames, int delay)
 {
     if (imageFilenames.isEmpty()) {
