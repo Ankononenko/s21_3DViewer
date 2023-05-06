@@ -4,7 +4,9 @@
  * Viewer applicaton
  *
  * Shortcuts: \n
- * \b Q \b - Quit; \n
+ * \b Q \b - Quit \n
+ * \b Ctrl + O \b - Load model \n
+ * \b P \b - Printscreen \n
  * \b R \b - Record screencast \n
  * \b NUM 4 \b - Move model to the left \n
  * \b NUM 6 \b - Move model to the right \n
